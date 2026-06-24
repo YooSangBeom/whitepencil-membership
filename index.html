@@ -1113,7 +1113,9 @@ function submitVisitorCoupon(){
     script.onerror = function(){ clearTimeout(timer); clearInterval(loadingTimer); reject(new Error('error')); };
     document.head.appendChild(script);
   }).then(function(data) {
+    clearInterval(loadingTimer);
     if(data.success){
+      btn.disabled = false; btn.textContent = '첫방문 쿠폰 신청하기';
       document.getElementById('visitor-form').style.display = 'none';
       document.getElementById('visitor-done-info').innerHTML =
         '<div class="done-row"><span class="dl">전화번호</span><span class="dv">'+document.getElementById('visitor-phone').value+'</span></div>'

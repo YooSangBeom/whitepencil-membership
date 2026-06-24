@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>화이트펜슬 멤버십 요금 계산기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg:#F7F5F0; --surface:#fff; --surface2:#F0EDE6;
+  --border:rgba(0,0,0,.08); --border-md:rgba(0,0,0,.14);
+  --text:#1A1814; --text-sub:#6B6760; --text-hint:#A09D98;
+  --accent:#3C3489; --accent-light:#EEEDFE; --accent-mid:#7F77DD;
+  --gold:#BA7517; --gold-light:#FAEEDA;
+  --green:#3B6D11; --green-light:#EAF3DE;
+  --red:#A32D2D; --red-light:#FCEBEB;
+  --orange:#f97316; --orange-light:#fff7ed;
+  --rsm:8px; --rmd:12px; --rlg:16px; --rxl:20px;
+  --sh:0 2px 16px rgba(0,0,0,.06);
+  --sh-lg:0 8px 32px rgba(0,0,0,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+
+/* ── Header ── */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.header-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;height:54px;gap:10px}
+.logo-text{font-size:15px;font-weight:700;letter-spacing:-.02em}
+.logo-sub{font-size:11px;color:var(--text-hint)}
+
+/* ── Layout ── */
+main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
+
+/* ── Hero ── */
+.hero{text-align:center;margin-bottom:24px;animation:fadeUp .5s ease both}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,5vw,36px);font-weight:400;letter-spacing:-.02em;line-height:1.25;margin-bottom:8px}
+.hero h1 span{color:var(--accent)}
+.hero-desc{font-size:15px;color:var(--text-sub);margin-bottom:18px;line-height:1.7}
+.hero-desc strong{color:var(--accent);font-weight:700}
+
+/* ── 공지 박스 ── */
+.notice-box{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rlg);padding:14px 16px;text-align:left;position:relative;overflow:hidden}
+.notice-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);border-radius:3px 0 0 3px}
+.notice-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(249,115,22,.12)}
+.notice-row:last-child{border-bottom:none;padding-bottom:0}
+.notice-row:first-child{padding-top:0}
+.notice-icon{font-size:14px;flex-shrink:0;margin-top:2px}
+.notice-title{font-size:12px;font-weight:700;color:#9a3412;line-height:1.4}
+.notice-sub{font-size:11px;color:#c2410c;margin-top:1px;line-height:1.5}
+
+/* ── Card ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:18px;margin-bottom:12px;box-shadow:var(--sh);animation:fadeUp .4s ease both}
+.card-title{font-size:11px;font-weight:700;color:var(--text-hint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.card-title-num{width:18px;height:18px;background:var(--accent);color:#fff;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── 지점 버튼 ── */
+.branch-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.branch-btn{padding:10px 8px;border:1px solid var(--border-md);border-radius:var(--rmd);background:var(--surface2);color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:all .14s}
+.branch-btn.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(60,52,137,.28)}
+.branch-btn:hover:not(.on){background:#e8e5de}
+
+/* ── 회원 확인 ── */
+.verify-box{background:var(--surface2);border-radius:var(--rmd);padding:14px;margin-top:12px}
+.verify-label{font-size:11px;font-weight:700;color:var(--text-hint);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.verify-row{display:flex;gap:8px}
+.verify-input-wrap{flex:1;display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--border-md);border-radius:var(--rsm);overflow:hidden;transition:border-color .13s}
+.verify-input-wrap:focus-within{border-color:var(--accent-mid)}
+.verify-input-wrap.ok{border-color:#639922;background:#f8fef5}
+.verify-input-wrap.err{border-color:var(--red)}
+.verify-prefix{padding:10px 10px;font-size:12px;color:var(--text-hint);background:transparent;white-space:nowrap;border-right:1px solid var(--border-md);flex-shrink:0}
+.verify-input{flex:1;padding:10px 10px;border:none;outline:none;font-family:'Noto Sans KR',sans-serif;font-size:14px;background:transparent;color:var(--text)}
+.verify-search-btn{padding:10px 14px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .13s;flex-shrink:0}
+.verify-search-btn:hover{background:#3028a0}
+.verify-search-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* 회원 확인 결과 */
+.verify-result{display:none;margin-top:10px;border-radius:var(--rmd);overflow:hidden}
+.verify-ok-card{padding:14px 16px;display:flex;align-items:center;gap:14px}
+.verify-fail-box{background:var(--red-light);border:1px solid rgba(163,45,45,.15);border-radius:var(--rmd);padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
+.verify-fail-icon{font-size:20px;flex-shrink:0}
+.verify-fail-text{font-size:13px;font-weight:700;color:var(--red)}
+.verify-fail-sub{font-size:11px;color:#c05252;margin-top:2px}
+
+/* ── 첫방문 쿠폰 유도 버튼 ── */
+.visitor-coupon-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:99px;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(124,58,237,.35);transition:opacity .14s;width:100%;justify-content:center}
+.visitor-coupon-btn:hover{opacity:.9}
+
+/* ── 등급 그리드 ── */
+.grade-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+@media(max-width:460px){.grade-grid{grid-template-columns:repeat(3,1fr)}}
+.gc{border:1px solid var(--border);border-radius:var(--rmd);padding:11px 4px;text-align:center;cursor:pointer;transition:all .15s;background:var(--surface2)}
+.gc:hover:not(.on){background:#e8e5de;transform:translateY(-1px)}
+.gc.on{border-width:2px;transform:translateY(-2px);box-shadow:var(--sh)}
+.gc.gs.on{border-color:#639922;background:var(--green-light)}
+.gc.gsi.on{border-color:#888780;background:#F5F4F1}
+.gc.gg.on{border-color:var(--gold);background:var(--gold-light)}
+.gc.gd.on{border-color:#378ADD;background:#E6F1FB}
+.gc.gw{transition:all .2s}
+.gc.gw.on{border-color:transparent;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);box-shadow:0 0 0 2px #a78bfa,0 0 20px rgba(167,139,250,.35),0 6px 20px rgba(0,0,0,.25);transform:translateY(-3px) scale(1.04);position:relative;overflow:hidden}
+.gc.gw.on::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1) 0%,transparent 60%);pointer-events:none}
+.gc.gw.on .gc-icon{filter:drop-shadow(0 0 5px rgba(255,255,255,.8))}
+.gc.gw.on .gc-name{color:#e2e8f0;font-weight:700;text-shadow:0 0 8px rgba(167,139,250,.5)}
+.gc.gw.on .gc-disc{color:#a78bfa}
+.gc-icon{font-size:20px;margin-bottom:4px}
+.gc-name{font-size:11px;font-weight:600;color:var(--text)}
+.gc-disc{font-size:10px;color:var(--text-hint);margin-top:1px}
+.gc.on .gc-name{font-weight:700}
+.grade-grid.locked .gc:not(.on){opacity:.45;cursor:not-allowed;transform:none !important}
+.grade-grid.locked .gc:not(.on):hover{background:var(--surface2);transform:none}
+.grade-lock-msg{font-size:11px;color:var(--text-hint);text-align:center;margin-top:8px;display:none}
+.grade-lock-msg.show{display:block}
+
+/* ── 카테고리 탭 ── */
+.cat-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.ctab{padding:6px 14px;border:1px solid var(--border-md);border-radius:99px;background:transparent;color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .13s}
+.ctab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.ctab:hover:not(.on){background:var(--surface2)}
+
+/* ── 요금제 그리드 ── */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:380px){.pgrid{grid-template-columns:1fr}}
+.pi{border:1px solid var(--border);border-radius:var(--rmd);padding:12px 14px;cursor:pointer;transition:all .13s;background:var(--surface2);position:relative}
+.pi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;border-radius:3px 0 0 3px;transition:background .13s}
+.pi:hover:not(.on):not(.unavail){background:#e8e5de}
+.pi.on{border:2px solid var(--accent-mid);background:var(--accent-light)}
+.pi.on::before{background:var(--accent)}
+.pi.unavail{opacity:.38;cursor:not-allowed}
+.pi-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.pi-price{font-size:15px;font-weight:700;color:var(--accent)}
+.pi-na{font-size:11px;color:var(--red);font-weight:500;margin-top:3px}
+.no-plan{font-size:13px;color:var(--text-hint);text-align:center;padding:18px;grid-column:1/-1}
+
+/* ── 결과 카드 ── */
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;box-shadow:var(--sh-lg);animation:fadeUp .3s ease both;margin-bottom:12px}
+.result-head{background:var(--accent);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.result-head-label{font-size:11px;color:rgba(255,255,255,.65);font-weight:500}
+.result-head-grade{font-size:13px;color:#fff;font-weight:700}
+.result-body{padding:0 18px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+.result-row:last-child{border-bottom:none}
+.rl{color:var(--text-sub)}
+.rv{font-weight:600}
+.rv.disc{color:var(--red)}
+.result-total{padding:14px 18px;background:var(--surface2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.rt-label{font-size:13px;color:var(--text-sub);font-weight:500}
+.rt-val{font-size:26px;font-weight:700;color:var(--accent);letter-spacing:-.03em}
+.result-benefit{padding:12px 18px;background:var(--green-light);border-top:1px solid rgba(59,109,17,.1);display:flex;align-items:center;gap:10px}
+.benefit-icon{font-size:16px;flex-shrink:0}
+.benefit-text{font-size:13px;color:var(--green);font-weight:700}
+.benefit-sub{font-size:11px;color:#5a9a2a;margin-top:1px}
+.result-no-benefit{padding:10px 18px;background:var(--surface2);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.result-no-benefit-text{font-size:12px;color:var(--text-hint)}
+
+/* ── 신청 버튼 ── */
+.apply-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .14s;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--accent)}
+.apply-btn:hover:not([disabled]){background:#3028a0}
+.apply-btn[disabled]{background:#bbb;cursor:not-allowed;opacity:.6}
+.apply-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── 신청 모달 공통 ── */
+.welcome-backdrop,.apply-backdrop,.visitor-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center;padding:16px}
+.welcome-backdrop.open,.apply-backdrop.open,.visitor-backdrop.open{display:flex;animation:fadeIn .2s ease both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popUp{from{opacity:0;transform:scale(.9) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+/* ── 웰컴 모달 ── */
+.welcome-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
+.welcome-head{background:linear-gradient(135deg,#16a34a,#15803d);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
+.welcome-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.welcome-head-sub{font-size:11px;color:rgba(255,255,255,.75)}
+.welcome-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
+.welcome-body{padding:16px}
+.welcome-info{background:var(--green-light);border:1px solid rgba(59,109,17,.15);border-radius:var(--rmd);padding:14px 16px;margin-bottom:14px;text-align:center}
+.welcome-info-icon{font-size:32px;margin-bottom:6px}
+.welcome-info-title{font-size:15px;font-weight:700;color:var(--green);margin-bottom:3px}
+.welcome-info-sub{font-size:12px;color:#5a9a2a;line-height:1.5}
+.welcome-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 14px;margin-bottom:14px;position:relative;overflow:hidden;font-size:12px;color:#9a3412;line-height:1.6}
+.welcome-notice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
+.welcome-submit{width:100%;padding:13px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+.welcome-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#16a34a,#15803d)}
+.welcome-btn[disabled]{background:#bbb;cursor:not-allowed;opacity:.6}
+
+/* ── 할인신청 모달 ── */
+.apply-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
+.apply-head{background:var(--accent);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
+.apply-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.apply-head-sub{font-size:11px;color:rgba(255,255,255,.7)}
+.apply-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
+.apply-x:hover{background:rgba(255,255,255,.25)}
+.apply-summary{background:var(--accent-light);padding:10px 16px;display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid rgba(127,119,221,.15)}
+.apply-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--surface);color:var(--accent);border:1px solid rgba(127,119,221,.25)}
+.apply-body{padding:16px}
+.apply-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:12px 14px;margin-bottom:14px;position:relative;overflow:hidden}
+.apply-notice::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
+
+/* ── 비회원쿠폰 모달 ── */
+.visitor-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
+.visitor-head{background:linear-gradient(135deg,#7c3aed,#6d28d9);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
+.visitor-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.visitor-head-sub{font-size:11px;color:rgba(255,255,255,.75)}
+.visitor-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
+.visitor-x:hover{background:rgba(255,255,255,.25)}
+.visitor-body{padding:16px}
+.visitor-info{background:#f5f3ff;border:1px solid rgba(124,58,237,.15);border-radius:var(--rmd);padding:14px 16px;margin-bottom:14px;text-align:center}
+.visitor-info-icon{font-size:36px;margin-bottom:6px}
+.visitor-info-title{font-size:15px;font-weight:700;color:#6d28d9;margin-bottom:3px}
+.visitor-info-sub{font-size:12px;color:#7c3aed;line-height:1.5}
+.visitor-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 14px;margin-bottom:14px;position:relative;overflow:hidden;font-size:12px;color:#9a3412;line-height:1.6}
+.visitor-notice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
+.visitor-submit{width:100%;padding:13px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .14s}
+.visitor-submit:hover{opacity:.9}
+.visitor-submit:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── 공통 폼 요소 ── */
+.afield{margin-bottom:12px}
+.alabel{display:block;font-size:10px;font-weight:700;color:var(--text-hint);letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.ainput{width:100%;padding:10px 12px;border:1.5px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;background:var(--surface);color:var(--text);transition:border-color .13s}
+.ainput:focus{outline:none;border-color:var(--accent-mid)}
+.ainput.err{border-color:var(--red)}
+.ainput[readonly]{background:var(--surface2);color:var(--text-sub);cursor:default}
+.anote{font-size:11px;color:var(--text-hint);margin-top:4px}
+.adivider{height:1px;background:var(--border);margin:14px 0}
+.aerr{display:none;color:var(--red);font-size:12px;margin-bottom:10px;padding:8px 12px;background:var(--red-light);border-radius:var(--rsm)}
+.asubmit{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .14s,transform .1s}
+.asubmit:hover{background:#3028a0}
+.asubmit:active{transform:scale(.98)}
+.asubmit:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── 완료 화면 ── */
+.apply-done{display:none;padding:32px 20px;text-align:center}
+.done-icon{font-size:48px;margin-bottom:12px}
+.done-title{font-size:19px;font-weight:700;margin-bottom:6px}
+.done-sub{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:16px}
+.done-info{background:var(--surface2);border-radius:var(--rmd);padding:12px 14px;text-align:left;margin-bottom:12px}
+.done-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border)}
+.done-row:last-child{border-bottom:none}
+.dl{color:var(--text-sub)}
+.dv{font-weight:600}
+.done-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 13px;margin-bottom:12px;position:relative;overflow:hidden;display:none;text-align:left}
+.done-notice::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
+.done-notice-title{font-size:12px;font-weight:700;color:#9a3412;margin-bottom:2px}
+.done-notice-sub{font-size:11px;color:#c2410c;line-height:1.5}
+.done-close{width:100%;padding:11px;background:var(--surface2);border:1px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;color:var(--text-sub);cursor:pointer}
+.done-close:hover{background:#e0ddd6}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
+
+/* ── Privacy Modal ── */
+.privacy-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;padding:16px}
+.privacy-backdrop.open{display:flex;animation:fadeIn .2s ease both}
+.privacy-box{background:var(--surface);width:100%;max-width:500px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:85vh;display:flex;flex-direction:column}
+.privacy-head{background:var(--accent);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.privacy-head-title{font-size:15px;font-weight:700;color:#fff}
+.privacy-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.privacy-x:hover{background:rgba(255,255,255,.25)}
+.privacy-body{padding:20px;overflow-y:auto;font-size:13px;line-height:1.8;color:var(--text-sub)}
+.privacy-body h3{font-size:13px;font-weight:700;color:var(--text);margin:16px 0 6px}
+.privacy-body h3:first-child{margin-top:0}
+.privacy-body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.privacy-body table th{background:var(--surface2);padding:7px 10px;text-align:left;border:1px solid var(--border-md);font-weight:600;color:var(--text)}
+.privacy-body table td{padding:7px 10px;border:1px solid var(--border);color:var(--text-sub)}
+.privacy-body .info-box{background:var(--surface2);border-radius:var(--rmd);padding:12px 14px;margin-top:16px;font-size:12px}
+.privacy-body .info-box p{margin-bottom:4px}
+.privacy-body .info-box p:last-child{margin-bottom:0}
+.privacy-footer-link{color:var(--accent);text-decoration:underline;cursor:pointer;font-size:11px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;padding:0}
+.privacy-footer-link:hover{color:var(--accent-mid)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img src="https://play-lh.googleusercontent.com/aVTlh7-EuRIYzIPrVA1rkLxaMubV22zsVTKxcijMxmoAhuSZuxwP9Aq2pCbuw9EesLRk=w240-h480-rw"
+      alt="화이트펜슬 로고" style="height:34px;width:34px;object-fit:contain;border-radius:8px;flex-shrink:0" />
+    <div>
+      <div class="logo-text">화이트펜슬 멤버십</div>
+      <div class="logo-sub">요금 계산기</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <div class="hero">
+    <h1>내 등급 혜택 확인하고<br><span>할인 신청</span>까지 한번에</h1>
+    <p class="hero-desc">지점과 등급을 선택하면 할인 요금과 적립 혜택을<br>바로 확인 후 <strong>할인 신청</strong>할 수 있어요</p>
+    <div class="notice-box">
+      <div class="notice-row">
+        <span class="notice-icon">📅</span>
+        <div>
+          <div class="notice-title">최소 구매 1일 전에 신청해주세요</div>
+          <div class="notice-sub">당일 신청은 적용이 어려울 수 있습니다</div>
+        </div>
+      </div>
+      <div class="notice-row">
+        <span class="notice-icon">🕛</span>
+        <div>
+          <div class="notice-title">할인 적용은 신청일 자정에 일괄 발급됩니다</div>
+          <div class="notice-sub">신청 완료 후 다음날 0시 이후 구매 시 할인 적용</div>
+        </div>
+      </div>
+      <div class="notice-row">
+        <span class="notice-icon">⭐</span>
+        <div>
+          <div class="notice-title">골드펜슬 이상 등급 혜택 — 적립·기간 추가 &amp; 네이버 리뷰 추가 적립은 자동 적용되지 않아요</div>
+          <div class="notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div>
+        </div>
+      </div>
+      <div class="notice-row">
+        <span class="notice-icon">🎁</span>
+        <div>
+          <div class="notice-title">새싹·실버펜슬 — 네이버 리뷰 작성 시 10시간 당일권 증정 (매월 1회 참여가능)</div>
+          <div class="notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div>
+        </div>
+      </div>
+      <div class="notice-row">
+        <span class="notice-icon">⏰</span>
+        <div>
+          <div class="notice-title">처음 방문하시나요? 비회원도 8시간 당일권 무료 쿠폰을 받을 수 있어요!</div>
+          <div class="notice-sub">전화번호 조회 후 비회원으로 확인되면 신청 버튼이 나타납니다 · 전화번호당 1회 한정</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 지점 + 회원 확인 -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-num">1</span>지점 선택 및 회원 확인</div>
+    <div class="branch-row">
+      <button class="branch-btn on" onclick="selBranch('gasan',this)">가산점</button>
+      <button class="branch-btn" onclick="selBranch('geumcheon',this)">금천점</button>
+      <button class="branch-btn" onclick="selBranch('guro',this)">구로디지털단지역점</button>
+    </div>
+
+    <div class="verify-box">
+      <div class="verify-label">전화번호로 회원 확인</div>
+      <div class="verify-row">
+        <div class="verify-input-wrap" id="verify-wrap">
+          <span class="verify-prefix">🇰🇷 +82</span>
+          <input class="verify-input" id="verify-phone" type="tel" inputmode="numeric"
+            placeholder="010-0000-0000" maxlength="13"
+            oninput="fmtVerifyPhone(this)"
+            onkeydown="if(event.key==='Enter')verifyMember()" />
+        </div>
+        <button class="verify-search-btn" id="verify-btn" onclick="verifyMember()">조회</button>
+      </div>
+      <div id="verify-result"></div>
+    </div>
+  </div>
+
+  <!-- 2. 등급 선택 -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-num">2</span>내 등급 선택</div>
+    <div class="grade-grid">
+      <div class="gc gs" onclick="selGrade('saesak',this)">
+        <div class="gc-icon">🌱</div><div class="gc-name">새싹펜슬</div><div class="gc-disc">할인 없음</div>
+      </div>
+      <div class="gc gsi" onclick="selGrade('silver',this)">
+        <div class="gc-icon">🥈</div><div class="gc-name">실버펜슬</div><div class="gc-disc">5% 할인</div>
+      </div>
+      <div class="gc gg on" onclick="selGrade('gold',this)">
+        <div class="gc-icon">🥇</div><div class="gc-name">골드펜슬</div><div class="gc-disc">10% 할인</div>
+      </div>
+      <div class="gc gd" onclick="selGrade('diamond',this)">
+        <div class="gc-icon">💎</div><div class="gc-name">다이아펜슬</div><div class="gc-disc">15% 할인</div>
+      </div>
+      <div class="gc gw" onclick="selGrade('white',this)">
+        <div class="gc-icon">👑</div><div class="gc-name">화이트펜슬</div><div class="gc-disc">20% 할인</div>
+      </div>
+    </div>
+    <div class="grade-lock-msg" id="grade-lock-msg">🔒 회원 확인된 등급이 자동 적용됩니다. 변경하려면 지점을 다시 선택해주세요.</div>
+  </div>
+
+  <!-- 3. 요금제 선택 -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-num">3</span>요금제 선택</div>
+    <div class="cat-tabs">
+      <button class="ctab on" onclick="selCat('hourly',this)">시간권</button>
+      <button class="ctab" onclick="selCat('period',this)">기간권</button>
+      <button class="ctab" onclick="selCat('fixed',this)">고정석기간권</button>
+      <button class="ctab" onclick="selCat('study',this)">스터디룸</button>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+
+  <!-- 결과 -->
+  <div id="result"></div>
+</main>
+
+<!-- 새싹 웰컴 당일권 신청 모달 -->
+<div class="welcome-backdrop" id="welcome-modal" onclick="if(event.target===this)closeWelcomeModal()">
+  <div class="welcome-box">
+    <div class="welcome-head">
+      <div>
+        <div class="welcome-head-title">🎁 웰컴 당일권 신청</div>
+        <div class="welcome-head-sub">새싹펜슬 회원 전용 · 1회 한정 혜택</div>
+      </div>
+      <button class="welcome-x" onclick="closeWelcomeModal()">✕</button>
+    </div>
+    <div class="welcome-body" id="welcome-form">
+      <div class="welcome-info">
+        <div class="welcome-info-icon">🌱</div>
+        <div class="welcome-info-title">당일권 2시간 무료 이용권</div>
+        <div class="welcome-info-sub">가입 후 1회 한정으로 제공되는 웰컴 혜택입니다<br>신청 후 자정에 일괄 발급됩니다</div>
+      </div>
+      <div class="welcome-notice">
+        ⚠️ 본 혜택은 <strong>1회 한정</strong>으로, 중복 신청이 불가합니다.<br>
+        신청 완료 후 다음날 0시 이후 방문 시 적용됩니다.
+      </div>
+      <div class="afield">
+        <label class="alabel">전화번호</label>
+        <input class="ainput" id="welcome-phone" type="tel" readonly />
+      </div>
+      <div class="afield">
+        <label class="alabel">지점</label>
+        <input class="ainput" id="welcome-branch" type="text" readonly />
+      </div>
+      <div class="afield">
+        <label class="alabel">등급</label>
+        <input class="ainput" id="welcome-grade" type="text" readonly />
+      </div>
+      <div class="afield">
+        <label class="alabel">혜택</label>
+        <input class="ainput" value="당일권 2시간 무료 이용권" readonly />
+      </div>
+      <div class="aerr" id="welcome-err"></div>
+      <button class="welcome-submit" id="welcome-submit-btn" onclick="submitWelcome()">웰컴 당일권 신청하기</button>
+    </div>
+    <div class="apply-done" id="welcome-done">
+      <div class="done-icon">🎉</div>
+      <div class="done-title">신청이 완료됐습니다!</div>
+      <div class="done-sub">내일 0시 이후 방문 시 당일권 2시간을 무료로 이용하실 수 있습니다 😊</div>
+      <div class="done-info" id="welcome-done-info"></div>
+      <button class="done-close" onclick="closeWelcomeModal()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 할인 신청 모달 -->
+<div class="apply-backdrop" id="apply-modal" onclick="if(event.target===this)closeApplyModal()">
+  <div class="apply-box">
+    <div class="apply-head">
+      <div>
+        <div class="apply-head-title">✏️ 멤버십 할인 신청</div>
+        <div class="apply-head-sub">선택하신 요금제로 할인 신청을 진행합니다</div>
+      </div>
+      <button class="apply-x" onclick="closeApplyModal()">✕</button>
+    </div>
+    <div class="apply-summary" id="apply-summary"></div>
+    <div class="apply-body" id="apply-form">
+      <div class="apply-notice">
+        <div class="notice-row" style="padding-top:0">
+          <span class="notice-icon">📅</span>
+          <div><div class="notice-title">최소 구매 1일 전에 신청해주세요</div><div class="notice-sub">당일 신청은 적용이 어려울 수 있습니다</div></div>
+        </div>
+        <div class="notice-row">
+          <span class="notice-icon">🕛</span>
+          <div><div class="notice-title">할인 적용은 신청일 자정에 일괄 발급됩니다</div><div class="notice-sub">신청 완료 후 다음날 0시 이후 구매 시 할인 적용</div></div>
+        </div>
+        <div class="notice-row" style="padding-bottom:0;border-bottom:none">
+          <span class="notice-icon">⭐</span>
+          <div><div class="notice-title">골드펜슬 이상 등급 혜택 — 적립·기간 추가 &amp; 네이버 리뷰 추가 적립은 자동 적용되지 않아요</div><div class="notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div></div>
+        </div>
+      </div>
+      <div class="afield">
+        <label class="alabel">전화번호</label>
+        <input class="ainput" id="apply-phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" maxlength="13" oninput="fmtApplyPhone(this)" />
+        <div class="anote">※ 회원 확인된 전화번호가 자동 입력됩니다</div>
+      </div>
+      <div class="adivider"></div>
+      <div class="afield">
+        <label class="alabel">지점</label>
+        <input class="ainput" id="apply-branch" readonly />
+      </div>
+      <div class="afield">
+        <label class="alabel">등급</label>
+        <input class="ainput" id="apply-grade" readonly />
+      </div>
+      <div class="afield">
+        <label class="alabel">요금제</label>
+        <input class="ainput" id="apply-plan" readonly />
+      </div>
+      <div class="afield">
+        <label class="alabel">정상가 / 할인가</label>
+        <input class="ainput" id="apply-price" readonly />
+      </div>
+      <div class="aerr" id="apply-err"></div>
+      <button class="asubmit" onclick="submitApply()">할인 신청하기</button>
+    </div>
+    <div class="apply-done" id="apply-done">
+      <div class="done-icon">🎉</div>
+      <div class="done-title">신청이 완료됐습니다!</div>
+      <div class="done-sub">담당자 확인 후 자정에 할인이 적용됩니다.</div>
+      <div class="done-info" id="apply-done-info"></div>
+      <div class="done-notice" id="apply-done-notice">
+        <div class="done-notice-title">📌 추가 적립 및 기간 안내</div>
+        <div class="done-notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div>
+      </div>
+      <button class="done-close" onclick="closeApplyModal()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 비회원 첫방문 쿠폰 모달 -->
+<div class="visitor-backdrop" id="visitor-modal" onclick="if(event.target===this)closeVisitorModal()">
+  <div class="visitor-box">
+    <div class="visitor-head">
+      <div>
+        <div class="visitor-head-title">🎁 첫방문 8시간 쿠폰</div>
+        <div class="visitor-head-sub">비회원 전용 · 전화번호당 1회 한정</div>
+      </div>
+      <button class="visitor-x" onclick="closeVisitorModal()">✕</button>
+    </div>
+    <div id="visitor-form">
+      <div class="visitor-body">
+        <div class="visitor-info">
+          <div class="visitor-info-icon">⏰</div>
+          <div class="visitor-info-title">당일권 8시간 무료 쿠폰</div>
+          <div class="visitor-info-sub">화이트펜슬을 처음 방문하시는 분께<br>8시간 당일권을 무료로 드립니다</div>
+        </div>
+        <div class="visitor-notice">
+          ⚠️ 전화번호당 <strong>1회만</strong> 신청 가능합니다.<br>
+          QR 출석 체크 없이도 쿠폰이 발급되지만,<br>
+          멤버십 회원 등록은 별도로 QR 출석이 필요합니다.<br>
+          신청 후 즉시 키오스크에서 사용 가능합니다.
+        </div>
+        <div class="afield">
+          <label class="alabel">전화번호</label>
+          <input class="ainput" id="visitor-phone" type="tel" readonly />
+        </div>
+        <div class="afield">
+          <label class="alabel">지점</label>
+          <input class="ainput" id="visitor-branch" type="text" readonly />
+        </div>
+        <div class="afield">
+          <label class="alabel">혜택</label>
+          <input class="ainput" value="당일권 8시간 무료 쿠폰 (1회 한정)" readonly />
+        </div>
+        <div class="aerr" id="visitor-err"></div>
+        <button class="visitor-submit" id="visitor-submit-btn" onclick="submitVisitorCoupon()">첫방문 쿠폰 신청하기</button>
+      </div>
+    </div>
+    <div class="apply-done" id="visitor-done">
+      <div class="done-icon">🎉</div>
+      <div class="done-title">신청이 완료됐습니다!</div>
+      <div class="done-sub">키오스크에서 바로 사용하실 수 있습니다 😊<br>QR 출석으로 멤버십 회원 등록도 해보세요!</div>
+      <div class="done-info" id="visitor-done-info"></div>
+      <button class="done-close" onclick="closeVisitorModal()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 개인정보처리방침 모달 -->
+<div class="privacy-backdrop" id="privacy-modal" onclick="if(event.target===this)closePrivacy()">
+  <div class="privacy-box">
+    <div class="privacy-head">
+      <span class="privacy-head-title">개인정보처리방침</span>
+      <button class="privacy-x" onclick="closePrivacy()">✕</button>
+    </div>
+    <div class="privacy-body">
+      <p>화이트펜슬 스터디카페 가산점(이하 "운영자")은 개인정보보호법에 따라 이용자의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 다음과 같이 개인정보처리방침을 수립·공개합니다.</p>
+      <h3>1. 수집하는 개인정보 항목 및 수집 목적</h3>
+      <table>
+        <tr><th>수집 항목</th><th>수집 목적</th><th>보유 기간</th></tr>
+        <tr><td>휴대전화번호</td><td>멤버십 할인 신청 확인 및 처리</td><td>서비스 종료 시까지</td></tr>
+      </table>
+      <h3>2. 개인정보의 제3자 제공</h3>
+      <p>운영자는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다.</p>
+      <h3>3. 개인정보의 파기</h3>
+      <p>이용자의 개인정보는 수집 목적이 달성된 후 또는 서비스 종료 시 지체없이 파기합니다.</p>
+      <h3>4. 이용자의 권리</h3>
+      <p>이용자는 언제든지 수집된 개인정보의 열람, 정정, 삭제, 처리 정지를 요청할 수 있습니다.</p>
+      <h3>5. 개인정보 보호 담당자</h3>
+      <div class="info-box">
+        <p>• 상호명: 화이트펜슬 스터디카페 가산점</p>
+        <p>• 대표자: 유상범</p>
+        <p>• 사업자등록번호: 205-77-00344</p>
+        <p>• 이메일: studygasan@naver.com</p>
+      </div>
+      <h3>6. 방침 시행일</h3>
+      <p>본 개인정보처리방침은 2026년 1월 1일부터 시행됩니다.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 화이트펜슬 멤버십 요금 계산기 · 가산점 · 금천점 · 구로디지털단지역점
+  <div style="margin-top:6px;font-size:10px;color:var(--text-hint);line-height:1.6">
+    본 서비스는 할인 신청 처리를 위해 전화번호를 수집합니다.<br>
+    수집된 정보는 할인 신청 처리 목적 외 사용되지 않으며, 서비스 종료 시 파기됩니다.
+  </div>
+  <div style="margin-top:8px">
+    <button class="privacy-footer-link" onclick="openPrivacy()">개인정보처리방침</button>
+  </div>
+</footer>
+
+<script>
+// ── 데이터 ───────────────────────────────────────────────────
+const PRICES = {
+  gasan:     {h50:80000,h100:140000,h200:250000,p2w:100000,p4w:160000,f2w:120000,f4w:180000,st20_4in:120000,st30_4in:180000},
+  geumcheon: {h50:80000,h100:140000,h200:250000,p2w:100000,p4w:160000,f2w:140000,f4w:200000,st20_2in:90000,st30_2in:130000},
+  guro:      {h50:80000,h100:140000,h200:250000,p2w:110000,p4w:170000,f2w:null,f4w:null,st20_2in:90000,st30_2in:130000,st20_6in:180000,st30_6in:270000}
+};
+const CATS = {
+  hourly: {label:'시간권',      plans:[{id:'h50',name:'50시간권'},{id:'h100',name:'100시간권'},{id:'h200',name:'200시간권'}]},
+  period: {label:'기간권',      plans:[{id:'p2w',name:'2주기간권'},{id:'p4w',name:'4주기간권'}]},
+  fixed:  {label:'고정석기간권', plans:[{id:'f2w',name:'고정 2주권'},{id:'f4w',name:'고정 4주권'}]},
+  study:  {label:'스터디룸시간권',plans:{
+    gasan:     [{id:'st20_4in',name:'4인실 20시간권'},{id:'st30_4in',name:'4인실 30시간권'}],
+    geumcheon: [{id:'st20_2in',name:'2인실 20시간권'},{id:'st30_2in',name:'2인실 30시간권'}],
+    guro:      [{id:'st20_2in',name:'2인실 20시간권'},{id:'st30_2in',name:'2인실 30시간권'},{id:'st20_6in',name:'6인실 20시간권'},{id:'st30_6in',name:'6인실 30시간권'}]
+  }}
+};
+const GRADES = {
+  saesak:  {name:'새싹펜슬',  icon:'🌱',disc:0},
+  silver:  {name:'실버펜슬',  icon:'🥈',disc:.05},
+  gold:    {name:'골드펜슬',  icon:'🥇',disc:.10},
+  diamond: {name:'다이아펜슬',icon:'💎',disc:.15},
+  white:   {name:'화이트펜슬',icon:'👑',disc:.20}
+};
+const BENEFITS = {
+  saesak:  {p2:0,p4:0,h50:0, h100:0, h200:0, study:0},
+  silver:  {p2:0,p4:0,h50:0, h100:0, h200:0, study:0},
+  gold:    {p2:1,p4:3,h50:5, h100:10,h200:20,study:.10},
+  diamond: {p2:2,p4:4,h50:8, h100:15,h200:30,study:.15},
+  white:   {p2:3,p4:5,h50:10,h100:20,h200:40,study:.20}
+};
+const BRANCH_NAMES = {gasan:'가산점',geumcheon:'금천점',guro:'구로디지털단지역점'};
+const BRANCH_API = {
+  gasan:     'https://script.google.com/macros/s/AKfycbzcKku8quWmaDOQHiVPAoW-iqUAFzusXM9UuDmI7w6tkaHnmWWA3fg9bXTvshMOBk9F/exec',
+  geumcheon: 'https://script.google.com/macros/s/AKfycbzxQiB04tHAmSmokQWb0vxSxw0r_hipgxQcOZAaZja2AvF6pOig8WvOOiukXZbXwOBV/exec',
+  guro:      'https://script.google.com/macros/s/AKfycbyQbwTVvf31E-0gCrGZQoNo-2TD9JQrVnbS7Ux_nrZPtY33xKlzeYx4X0kjKMPOde9aHA/exec'
+};
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwO5mnyFykGBJjYJn_YmzbvJLqBTHmKx9lbBQ887c_udT8MaDOsjfLClXeG1Qv-TaVH/exec';
+const SERVER_URL  = 'http://121.138.121.85:5000';
+
+let branch='gasan', grade='gold', cat='hourly', plan='h50';
+let verifiedPhone='', verifiedGrade='';
+
+// ── 유틸 ─────────────────────────────────────────────────────
+function fmt(n){return Number(n).toLocaleString('ko-KR')}
+function getPlans(){return cat==='study'?(CATS.study.plans[branch]||[]):CATS[cat].plans}
+function getPlanName(){const p=getPlans().find(x=>x.id===plan);return p?p.name:plan}
+function nowStr(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+
+    ' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+function getBenefit(){
+  const b=BENEFITS[grade];
+  if(cat==='hourly'){const m={h50:b.h50,h100:b.h100,h200:b.h200};const v=m[plan]||0;return v>0?{type:'hour',val:v}:null;}
+  if(cat==='period'||cat==='fixed'){const v=(plan==='p2w'||plan==='f2w')?b.p2:b.p4;return v>0?{type:'day',val:v}:null;}
+  if(cat==='study'){if(!b.study)return null;const bH=plan&&plan.startsWith('st20')?20:30;return{type:'study',pct:Math.round(b.study*100),val:Math.round(bH*b.study)};}
+  return null;
+}
+function benefitStr(benefit){
+  if(!benefit) return '없음';
+  if(benefit.type==='hour') return '+'+benefit.val+'시간 추가 적립 (네이버 리뷰 작성)';
+  if(benefit.type==='day')  return '+'+benefit.val+'일 추가 제공 (네이버 리뷰 작성)';
+  if(benefit.type==='study') return '+'+benefit.val+'시간 추가 적립 ('+benefit.pct+'%, 네이버 리뷰 작성)';
+  return '없음';
+}
+
+// ── 다음 등급 프로그레스 ──────────────────────────────────────
+const GRADE_LEVELS = [
+  {key:'saesak', name:'새싹펜슬', min:0},
+  {key:'silver', name:'실버펜슬', min:50},
+  {key:'gold',   name:'골드펜슬', min:100},
+  {key:'diamond',name:'다이아펜슬',min:200},
+  {key:'white',  name:'화이트펜슬',min:365},
+];
+function getProgressHtml(total, gradeKey) {
+  const idx = GRADE_LEVELS.findIndex(g=>g.key===gradeKey);
+  const cur = GRADE_LEVELS[idx];
+  const next = GRADE_LEVELS[idx+1];
+  if(!next) {
+    return '<div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.5);border-radius:var(--rsm);text-align:center;font-size:12px;font-weight:700;color:inherit">👑 최고 등급 달성!</div>';
+  }
+  const range = next.min - cur.min;
+  const progress = total - cur.min;
+  const pct = Math.min(Math.round(progress / range * 100), 100);
+  const remain = next.min - total;
+  return '<div style="margin-top:12px;padding:10px 12px;background:rgba(255,255,255,.45);border-radius:var(--rsm)">'
+    +'<div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:6px">'
+      +'<span>'+GRADES[gradeKey].icon+' '+GRADES[gradeKey].name+'</span>'
+      +'<span>'+GRADES[next.key].icon+' '+next.name+'</span>'
+    +'</div>'
+    +'<div style="height:8px;background:rgba(0,0,0,.1);border-radius:99px;overflow:hidden">'
+      +'<div style="height:100%;width:'+pct+'%;background:currentColor;border-radius:99px;transition:width .8s ease;opacity:.7"></div>'
+    +'</div>'
+    +'<div style="font-size:11px;margin-top:5px;text-align:right;opacity:.75">'+next.name+'까지 <strong>'+remain+'회</strong> 남음</div>'
+  +'</div>'
+  +'<div style="margin-top:10px;padding:10px 12px;background:rgba(255,255,255,.45);border-radius:var(--rsm);border-left:3px solid rgba(0,0,0,.15)">'
+    +'<div style="font-size:11px;font-weight:700;opacity:.7;margin-bottom:3px">📋 출석 내역 안내</div>'
+    +'<div style="font-size:11px;line-height:1.6;opacity:.65">'
+      +'2026년 1월 1일 ~ 5월 20일 키오스크 출석 내역은 소급 적용되었습니다.<br>'
+      +'이후 출석 내역은 <strong>QR 체크인으로만 반영</strong>됩니다.'
+    +'</div>'
+  +'</div>';
+}
+
+// ── 렌더 ─────────────────────────────────────────────────────
+function renderPlans(){
+  const plans=getPlans();
+  const grid=document.getElementById('pgrid');
+  if(!plans.length){grid.innerHTML='<div class="no-plan">이 지점에서 판매하지 않는 요금제입니다.</div>';return;}
+  grid.innerHTML=plans.map(p=>{
+    const price=PRICES[branch][p.id];
+    const avail=price!=null;
+    const on=p.id===plan&&avail;
+    return '<div class="pi'+(avail?'':' unavail')+(on?' on':'')+'" onclick="selPlan(\''+p.id+'\')">'
+      +'<div class="pi-name">'+p.name+'</div>'
+      +(avail?'<div class="pi-price">'+fmt(price)+'원</div>':'<div class="pi-na">판매 안 함</div>')
+      +'</div>';
+  }).join('');
+}
+
+function renderResult(){
+  const el=document.getElementById('result');
+  if(!plan){el.innerHTML='';return;}
+  const price=PRICES[branch][plan];
+  if(!price){el.innerHTML='';return;}
+  const g=GRADES[grade];
+  const discAmt=Math.round(price*g.disc);
+  const final=price-discAmt;
+  const benefit=getBenefit();
+
+  let bHtml='';
+  if(benefit){
+    if(benefit.type==='hour')
+      bHtml='<div class="result-benefit"><div class="benefit-icon">⏰</div><div><div class="benefit-text">+'+benefit.val+'시간 추가 적립 (네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 전용 혜택</div></div></div>';
+    else if(benefit.type==='day')
+      bHtml='<div class="result-benefit"><div class="benefit-icon">📅</div><div><div class="benefit-text">+'+benefit.val+'일 추가 제공 (네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 전용 혜택</div></div></div>';
+    else if(benefit.type==='study')
+      bHtml='<div class="result-benefit"><div class="benefit-icon">⏰</div><div><div class="benefit-text">+'+benefit.val+'시간 추가 적립 ('+benefit.pct+'%, 네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 스터디룸 혜택</div></div></div>';
+  } else {
+    bHtml='<div class="result-no-benefit"><span>ℹ️</span><span class="result-no-benefit-text">추가 적립·기간 혜택 없음 — 골드펜슬 이상부터 제공됩니다</span></div>';
+  }
+
+  let applyBtn='';
+  if(grade==='saesak'){
+    applyBtn = verifiedPhone
+      ? '<button class="welcome-btn" onclick="openWelcomeModal()">🎁 웰컴 당일권 신청하기</button>'
+      : '<button class="apply-btn" disabled><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>회원 확인 후 신청 가능합니다</button>';
+  } else if(!verifiedPhone){
+    applyBtn='<button class="apply-btn" disabled><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>회원 확인 후 신청 가능합니다</button>';
+  } else {
+    applyBtn='<button class="apply-btn" onclick="openApplyModal()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>할인 신청하기</button>';
+  }
+
+  el.innerHTML=
+    '<div class="result-card">'
+      +'<div class="result-head"><div class="result-head-label">계산 결과</div><div class="result-head-grade">'+g.icon+' '+g.name+'</div></div>'
+      +'<div class="result-body">'
+        +'<div class="result-row"><span class="rl">정상가</span><span class="rv">'+fmt(price)+'원</span></div>'
+        +'<div class="result-row"><span class="rl">등급 할인 ('+Math.round(g.disc*100)+'%)</span><span class="rv disc">−'+fmt(discAmt)+'원</span></div>'
+      +'</div>'
+      +'<div class="result-total"><span class="rt-label">최종 결제 금액</span><span class="rt-val">'+fmt(final)+'원</span></div>'
+      +bHtml
+      +applyBtn
+    +'</div>';
+}
+
+// ── 선택 핸들러 ───────────────────────────────────────────────
+function selBranch(b,el){
+  branch=b;
+  document.querySelectorAll('.branch-btn').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  verifiedPhone=''; verifiedGrade='';
+  document.getElementById('verify-phone').value='';
+  document.getElementById('verify-wrap').classList.remove('ok','err');
+  document.getElementById('verify-result').innerHTML='';
+  document.querySelector('.grade-grid').classList.remove('locked');
+  document.getElementById('grade-lock-msg').classList.remove('show');
+  const plans=getPlans();
+  if(!plans.find(p=>p.id===plan&&PRICES[branch][p.id]!=null))
+    plan=(plans.find(p=>PRICES[branch][p.id]!=null)||{}).id||null;
+  renderPlans(); renderResult();
+}
+
+function selGrade(g,el){
+  if(verifiedPhone) return;
+  grade=g;
+  document.querySelectorAll('.gc').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  renderResult();
+}
+
+function selCat(c,el){
+  cat=c;
+  document.querySelectorAll('.ctab').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  plan=(getPlans().find(p=>PRICES[branch][p.id]!=null)||{}).id||null;
+  renderPlans(); renderResult();
+}
+
+function selPlan(pid){
+  if(PRICES[branch][pid]==null)return;
+  plan=pid; renderPlans(); renderResult();
+}
+
+// ── 회원 확인 ─────────────────────────────────────────────────
+function fmtVerifyPhone(input){
+  const v=input.value.replace(/\D/g,'');
+  if(v.length<=3) input.value=v;
+  else if(v.length<=7) input.value=v.slice(0,3)+'-'+v.slice(3);
+  else input.value=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);
+}
+function fmtApplyPhone(input){fmtVerifyPhone(input);}
+
+const GRADE_COLORS={
+  saesak: {color:'#166534',bg:'#dcfce7'},
+  silver: {color:'#475569',bg:'#f1f5f9'},
+  gold:   {color:'#92400e',bg:'#fef3c7'},
+  diamond:{color:'#6d28d9',bg:'#ede9fe'},
+  white:  {color:'#1e293b',bg:'#e0f2fe'}
+};
+
+function verifyMember(){
+  const input=document.getElementById('verify-phone');
+  const btn=document.getElementById('verify-btn');
+  const resEl=document.getElementById('verify-result');
+  const wrap=document.getElementById('verify-wrap');
+  const raw=input.value.replace(/\D/g,'');
+
+  wrap.classList.remove('ok','err');
+  resEl.innerHTML='';
+  verifiedPhone=''; verifiedGrade='';
+  renderResult();
+
+  if(raw.length<10||raw.length>11){
+    wrap.classList.add('err');
+    resEl.innerHTML='<div class="verify-fail-box"><span class="verify-fail-icon">⚠️</span><div><div class="verify-fail-text">올바른 전화번호를 입력해주세요</div></div></div>';
+    return;
+  }
+
+  btn.disabled=true; btn.textContent='확인 중...';
+
+  const cbName='cb_'+Date.now();
+  const url=BRANCH_API[branch]+'?action=checkMember&phone='+raw+'&callback='+cbName;
+
+  new Promise((resolve,reject)=>{
+    const script=document.createElement('script');
+    const timer=setTimeout(()=>{delete window[cbName];script.remove();reject(new Error('timeout'));},10000);
+    window[cbName]=(data)=>{clearTimeout(timer);delete window[cbName];script.remove();resolve(data);};
+    script.src=url;
+    script.onerror=()=>{clearTimeout(timer);reject(new Error('error'));};
+    document.head.appendChild(script);
+  }).then(data=>{
+    btn.disabled=false; btn.textContent='조회';
+    if(data.ok){
+      verifiedPhone=input.value;
+      verifiedGrade=data.grade;
+      grade=data.grade;
+      document.querySelectorAll('.gc').forEach(e=>e.classList.remove('on'));
+      const gMap={saesak:'gs',silver:'gsi',gold:'gg',diamond:'gd',white:'gw'};
+      document.querySelector('.gc.'+gMap[data.grade]).classList.add('on');
+      document.querySelector('.grade-grid').classList.add('locked');
+      document.getElementById('grade-lock-msg').classList.add('show');
+      renderResult();
+      const gc=GRADE_COLORS[data.grade];
+      const g=GRADES[data.grade];
+      wrap.classList.add('ok');
+      resEl.innerHTML=
+        '<div style="background:'+gc.bg+';border-radius:var(--rmd);padding:14px 16px;margin-top:10px;color:'+gc.color+'">'
+          +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
+            +'<span style="font-size:30px;line-height:1">'+g.icon+'</span>'
+            +'<div>'
+              +'<div style="font-size:15px;font-weight:900">'+g.name+'</div>'
+              +'<div style="font-size:12px;opacity:.75;margin-top:1px">누적 출석 '+data.totalCount+'회</div>'
+            +'</div>'
+          +'</div>'
+          +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">'
+            +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
+              +'<div style="font-size:16px;font-weight:900">'+data.totalCount+'</div>'
+              +'<div style="font-size:10px;margin-top:2px;opacity:.7">누적 출석</div>'
+            +'</div>'
+            +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
+              +'<div style="font-size:16px;font-weight:900">'+(data.monthCount||0)+'</div>'
+              +'<div style="font-size:10px;margin-top:2px;opacity:.7">이달 출석</div>'
+            +'</div>'
+            +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
+              +'<div style="font-size:16px;font-weight:900">'+Math.round(g.disc*100)+'%</div>'
+              +'<div style="font-size:10px;margin-top:2px;opacity:.7">할인율</div>'
+            +'</div>'
+            +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
+              +'<div style="font-size:16px;font-weight:900">'+(data.streak>=2?'🔥'+data.streak:data.streak)+'</div>'
+              +'<div style="font-size:10px;margin-top:2px;opacity:.7">연속 출석</div>'
+            +'</div>'
+          +'</div>'
+        +getProgressHtml(data.totalCount, data.grade)
+        +'</div>';
+    } else {
+      // ── 비회원 조회 결과 — 첫방문 쿠폰 유도 버튼 포함 ──
+      wrap.classList.add('err');
+      resEl.innerHTML=
+        '<div style="margin-top:10px">'
+          +'<div class="verify-fail-box">'
+            +'<span class="verify-fail-icon">😢</span>'
+            +'<div>'
+              +'<div class="verify-fail-text">'+(data.msg||'등록된 회원이 아닙니다')+'</div>'
+              +'<div class="verify-fail-sub">'
+                +'매장 내 QR을 통해 출석 체크 1회만 하면 등록돼요!<br>'
+                +'<span style="display:inline-block;margin-top:5px;padding:3px 10px;background:#dcfce7;color:#16a34a;border-radius:99px;font-size:11px;font-weight:700">🎁 1회 출석 시 무료 이용권 즉시 발급</span><br>'
+                +'<span style="display:inline-block;margin-top:4px;padding:3px 10px;background:#e0f2fe;color:#0369a1;border-radius:99px;font-size:11px;font-weight:700">📝 네이버 리뷰 작성 시 10시간 당일권 추가 발급!</span>'
+              +'</div>'
+            +'</div>'
+          +'</div>'
+          // 첫방문 쿠폰 유도 버튼
+          +'<button class="visitor-coupon-btn" onclick="openVisitorModal()">'
+            +'⏰ 첫방문 8시간 쿠폰 신청하기 (비회원 전용 · 1회 한정)'
+          +'</button>'
+        +'</div>';
+    }
+  }).catch(()=>{
+    btn.disabled=false; btn.textContent='조회';
+    resEl.innerHTML='<div class="verify-fail-box" style="margin-top:10px"><span class="verify-fail-icon">⚠️</span><div><div class="verify-fail-text">서버 오류가 발생했습니다</div><div class="verify-fail-sub">잠시 후 다시 시도해주세요</div></div></div>';
+  });
+}
+
+// ── 웰컴 당일권 모달 ──────────────────────────────────────────
+function openWelcomeModal(){
+  if(!verifiedPhone) return;
+  document.getElementById('welcome-phone').value  = verifiedPhone;
+  document.getElementById('welcome-branch').value = BRANCH_NAMES[branch];
+  document.getElementById('welcome-grade').value  = '🌱 새싹펜슬';
+  document.getElementById('welcome-err').style.display = 'none';
+  document.getElementById('welcome-form').style.display = 'block';
+  document.getElementById('welcome-done').style.display = 'none';
+  document.getElementById('welcome-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeWelcomeModal(){
+  document.getElementById('welcome-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function submitWelcome(){
+  const btn   = document.getElementById('welcome-submit-btn');
+  const errEl = document.getElementById('welcome-err');
+  errEl.style.display = 'none';
+  btn.disabled = true; btn.textContent = '신청 중...';
+
+  const cbName = 'wcb_' + Date.now();
+  const phone  = verifiedPhone;
+  const branchName = BRANCH_NAMES[branch];
+  const url = SCRIPT_URL + '?action=checkWelcome&phone=' + phone.replace(/\D/g,'') + '&branch=' + encodeURIComponent(branchName) + '&callback=' + cbName;
+
+  new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    const timer  = setTimeout(() => { delete window[cbName]; script.remove(); reject(new Error('timeout')); }, 10000);
+    window[cbName] = (data) => { clearTimeout(timer); delete window[cbName]; script.remove(); resolve(data); };
+    script.src    = url;
+    script.onerror = () => { clearTimeout(timer); reject(new Error('error')); };
+    document.head.appendChild(script);
+  }).then(checkData => {
+    if(checkData.used) {
+      errEl.textContent = '이미 웰컴 당일권을 신청하셨습니다. (1회 한정)';
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = '웰컴 당일권 신청하기';
+      return;
+    }
+    const data = {
+      action:'saveApply', phone,
+      branch:branchName, grade:'새싹펜슬',
+      category:'웰컴혜택', plan:'당일권 2시간 무료 이용권',
+      normalPrice:0, discountRate:0, discountAmt:0, finalPrice:0,
+      benefit:'당일권 2시간 무료 이용권', appliedAt:nowStr()
+    };
+    fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)})
+      .catch(e => console.error('[웰컴 저장 실패]', e));
+
+    btn.disabled = false; btn.textContent = '웰컴 당일권 신청하기';
+    document.getElementById('welcome-form').style.display = 'none';
+    document.getElementById('welcome-done-info').innerHTML =
+      '<div class="done-row"><span class="dl">전화번호</span><span class="dv">'+data.phone+'</span></div>'
+      +'<div class="done-row"><span class="dl">지점</span><span class="dv">'+data.branch+'</span></div>'
+      +'<div class="done-row"><span class="dl">등급</span><span class="dv">🌱 새싹펜슬</span></div>'
+      +'<div class="done-row"><span class="dl">혜택</span><span class="dv" style="color:var(--green)">당일권 2시간 무료 이용권</span></div>'
+      +'<div class="done-row"><span class="dl">신청 일시</span><span class="dv">'+data.appliedAt+'</span></div>';
+    document.getElementById('welcome-done').style.display = 'block';
+  }).catch(() => {
+    errEl.textContent = '서버 오류가 발생했습니다. 다시 시도해주세요.';
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = '웰컴 당일권 신청하기';
+  });
+}
+
+// ── 할인 신청 모달 ────────────────────────────────────────────
+function openApplyModal(){
+  if(!plan||!verifiedPhone) return;
+  const price=PRICES[branch][plan];
+  if(!price) return;
+  const g=GRADES[grade];
+  const discAmt=Math.round(price*g.disc);
+  const final=price-discAmt;
+  const catLabel=CATS[cat].label;
+  const planName=getPlanName();
+
+  document.getElementById('apply-summary').innerHTML=
+    '<span class="apply-badge">'+BRANCH_NAMES[branch]+'</span>'
+    +'<span class="apply-badge">'+g.icon+' '+g.name+'</span>'
+    +'<span class="apply-badge">'+catLabel+' · '+planName+'</span>'
+    +'<span class="apply-badge">'+fmt(final)+'원</span>';
+
+  document.getElementById('apply-phone').value=verifiedPhone;
+  document.getElementById('apply-phone').classList.remove('err');
+  document.getElementById('apply-branch').value=BRANCH_NAMES[branch];
+  document.getElementById('apply-grade').value=g.icon+' '+g.name+(g.disc>0?' ('+Math.round(g.disc*100)+'% 할인)':' (할인 없음)');
+  document.getElementById('apply-plan').value=catLabel+' · '+planName;
+  document.getElementById('apply-price').value=fmt(price)+'원  →  '+fmt(final)+'원  (-'+fmt(discAmt)+'원)';
+  document.getElementById('apply-err').style.display='none';
+  document.getElementById('apply-form').style.display='block';
+  document.getElementById('apply-done').style.display='none';
+
+  document.getElementById('apply-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeApplyModal(){
+  document.getElementById('apply-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+async function submitApply(){
+  const phone=document.getElementById('apply-phone').value.trim();
+  const errEl=document.getElementById('apply-err');
+  document.getElementById('apply-phone').classList.remove('err');
+  errEl.style.display='none';
+  const raw=phone.replace(/\D/g,'');
+  if(raw.length<10||raw.length>11){
+    document.getElementById('apply-phone').classList.add('err');
+    errEl.textContent='올바른 전화번호를 입력해주세요.';
+    errEl.style.display='block';
+    return;
+  }
+  const price=PRICES[branch][plan];
+  const g=GRADES[grade];
+  const discAmt=Math.round(price*g.disc);
+  const final=price-discAmt;
+  const benefit=getBenefit();
+  const data={
+    action:'saveApply', phone,
+    branch:BRANCH_NAMES[branch], grade:g.name,
+    category:CATS[cat].label, plan:getPlanName(),
+    normalPrice:price, discountRate:Math.round(g.disc*100),
+    discountAmt:discAmt, finalPrice:final,
+    benefit:benefitStr(benefit), appliedAt:nowStr()
+  };
+  const btn=document.querySelector('.asubmit');
+  btn.disabled=true; btn.textContent='신청 중...';
+  try {
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  } catch(e){console.error('[시트 저장 실패]',e);}
+  btn.disabled=false; btn.textContent='할인 신청하기';
+  document.getElementById('apply-form').style.display='none';
+  document.getElementById('apply-done-info').innerHTML=
+    '<div class="done-row"><span class="dl">전화번호</span><span class="dv">'+data.phone+'</span></div>'
+    +'<div class="done-row"><span class="dl">지점</span><span class="dv">'+data.branch+'</span></div>'
+    +'<div class="done-row"><span class="dl">등급</span><span class="dv">'+g.icon+' '+data.grade+'</span></div>'
+    +'<div class="done-row"><span class="dl">요금제</span><span class="dv">'+data.category+' · '+data.plan+'</span></div>'
+    +'<div class="done-row"><span class="dl">정상가</span><span class="dv">'+fmt(data.normalPrice)+'원</span></div>'
+    +'<div class="done-row"><span class="dl">할인 금액</span><span class="dv" style="color:var(--red)">-'+fmt(data.discountAmt)+'원 ('+data.discountRate+'%)</span></div>'
+    +'<div class="done-row"><span class="dl">최종 결제</span><span class="dv" style="color:var(--accent);font-size:15px">'+fmt(data.finalPrice)+'원</span></div>'
+    +'<div class="done-row"><span class="dl">추가 혜택</span><span class="dv" style="color:var(--green)">'+data.benefit+'</span></div>'
+    +'<div class="done-row"><span class="dl">신청 일시</span><span class="dv">'+data.appliedAt+'</span></div>';
+  if(benefit && grade!=='saesak' && grade!=='silver'){
+    document.getElementById('apply-done-notice').style.display='block';
+  }
+  document.getElementById('apply-done').style.display='block';
+}
+
+// ── 비회원 첫방문 쿠폰 모달 ──────────────────────────────────
+function openVisitorModal(){
+  const phone = document.getElementById('verify-phone').value.trim();
+  if(!phone) return;
+  document.getElementById('visitor-phone').value  = phone;
+  document.getElementById('visitor-branch').value = BRANCH_NAMES[branch];
+  document.getElementById('visitor-err').style.display = 'none';
+  document.getElementById('visitor-form').style.display = 'block';
+  document.getElementById('visitor-done').style.display = 'none';
+  document.getElementById('visitor-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVisitorModal(){
+  document.getElementById('visitor-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function submitVisitorCoupon(){
+  const btn   = document.getElementById('visitor-submit-btn');
+  const errEl = document.getElementById('visitor-err');
+  errEl.style.display = 'none';
+  btn.disabled = true; btn.textContent = '신청 중...';
+
+  const phone      = document.getElementById('visitor-phone').value.trim().replace(/\D/g,'');
+  const branchName = BRANCH_NAMES[branch];
+  const gasUrl     = BRANCH_API[branch]; // 각 지점 출첵 GAS URL
+  const cbName     = 'vcb_' + Date.now();
+
+  new Promise(function(resolve, reject) {
+    const script = document.createElement('script');
+    const timer  = setTimeout(function(){ delete window[cbName]; script.remove(); reject(new Error('timeout')); }, 15000);
+    window[cbName] = function(data){ clearTimeout(timer); delete window[cbName]; script.remove(); resolve(data); };
+    script.src    = gasUrl + '?action=issue_visitor_coupon&phone=' + encodeURIComponent(phone) + '&branch=' + encodeURIComponent(branchName) + '&callback=' + cbName;
+    script.onerror = function(){ clearTimeout(timer); reject(new Error('error')); };
+    document.head.appendChild(script);
+  }).then(function(data) {
+    if(data.success){
+      document.getElementById('visitor-form').style.display = 'none';
+      document.getElementById('visitor-done-info').innerHTML =
+        '<div class="done-row"><span class="dl">전화번호</span><span class="dv">'+document.getElementById('visitor-phone').value+'</span></div>'
+        +'<div class="done-row"><span class="dl">지점</span><span class="dv">'+branchName+'</span></div>'
+        +'<div class="done-row"><span class="dl">혜택</span><span class="dv" style="color:#7c3aed">당일권 8시간 무료 쿠폰</span></div>'
+        +'<div class="done-row"><span class="dl">발급 일시</span><span class="dv">'+nowStr()+'</span></div>';
+      document.getElementById('visitor-done').style.display = 'block';
+    } else if(data.duplicate){
+      errEl.textContent = '이미 첫방문 쿠폰을 신청하셨습니다. (1회 한정)';
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = '첫방문 쿠폰 신청하기';
+    } else {
+      errEl.textContent = (data.error || '오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = '첫방문 쿠폰 신청하기';
+    }
+  }).catch(function() {
+    errEl.textContent = '서버 연결 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = '첫방문 쿠폰 신청하기';
+  });
+}
+
+// ── 개인정보처리방침 모달 ─────────────────────────────────────
+function openPrivacy(){
+  document.getElementById('privacy-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePrivacy(){
+  document.getElementById('privacy-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── 초기화 ────────────────────────────────────────────────────
+renderPlans();
+renderResult();
+</script>
+</body>
+</html>

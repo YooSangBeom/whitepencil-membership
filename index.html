@@ -1097,12 +1097,20 @@ function submitVisitorCoupon(){
   const gasUrl     = BRANCH_API[branch]; // 각 지점 출첵 GAS URL
   const cbName     = 'vcb_' + Date.now();
 
+  // 쿠폰 발급은 Playwright 자동화라 최대 2분 소요 — 버튼 메시지로 진행 상황 안내
+  let dotCount = 0;
+  const loadingTimer = setInterval(function(){
+    dotCount = (dotCount + 1) % 4;
+    const msgs = ['쿠폰 발급 중', '키오스크 접속 중', '쿠폰 등록 중', '거의 다 됐어요'];
+    btn.textContent = msgs[dotCount] + '...';
+  }, 4000);
+
   new Promise(function(resolve, reject) {
     const script = document.createElement('script');
-    const timer  = setTimeout(function(){ delete window[cbName]; script.remove(); reject(new Error('timeout')); }, 15000);
-    window[cbName] = function(data){ clearTimeout(timer); delete window[cbName]; script.remove(); resolve(data); };
+    const timer  = setTimeout(function(){ clearInterval(loadingTimer); delete window[cbName]; script.remove(); reject(new Error('timeout')); }, 120000);
+    window[cbName] = function(data){ clearTimeout(timer); clearInterval(loadingTimer); delete window[cbName]; script.remove(); resolve(data); };
     script.src    = gasUrl + '?action=issue_visitor_coupon&phone=' + encodeURIComponent(phone) + '&branch=' + encodeURIComponent(branchName) + '&callback=' + cbName;
-    script.onerror = function(){ clearTimeout(timer); reject(new Error('error')); };
+    script.onerror = function(){ clearTimeout(timer); clearInterval(loadingTimer); reject(new Error('error')); };
     document.head.appendChild(script);
   }).then(function(data) {
     if(data.success){
@@ -1123,7 +1131,8 @@ function submitVisitorCoupon(){
       btn.disabled = false; btn.textContent = '첫방문 쿠폰 신청하기';
     }
   }).catch(function() {
-    errEl.textContent = '서버 연결 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
+    clearInterval(loadingTimer);
+    errEl.textContent = '발급 처리 중 오류가 발생했습니다. 관리자에게 문의해주세요.';
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = '첫방문 쿠폰 신청하기';
   });

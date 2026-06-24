@@ -320,7 +320,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
         <span class="notice-icon">⏰</span>
         <div>
           <div class="notice-title">처음 방문하시나요? 비회원도 8시간 당일권 무료 쿠폰을 받을 수 있어요!</div>
-          <div class="notice-sub">전화번호 조회 후 비회원으로 확인되면 신청 버튼이 나타납니다 · 전화번호당 1회 한정</div>
+          <div class="notice-sub">평일(월~금)에만 신청 가능 · 전화번호 조회 후 비회원으로 확인되면 신청 버튼이 나타납니다 · 전화번호당 1회 한정</div>
         </div>
       </div>
     </div>
@@ -523,9 +523,14 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
         </div>
         <div class="visitor-notice">
           ⚠️ 전화번호당 <strong>1회만</strong> 신청 가능합니다.<br>
+          📅 <strong>평일(월~금)에만</strong> 발급 가능합니다.<br>
           QR 출석 체크 없이도 쿠폰이 발급되지만,<br>
           멤버십 회원 등록은 별도로 QR 출석이 필요합니다.<br>
           신청 후 즉시 키오스크에서 사용 가능합니다.
+        </div>
+        <div class="visitor-weekend-box" id="visitor-weekend-box" style="display:none;background:#fff7ed;border:1px solid rgba(249,115,22,.3);border-radius:var(--rmd);padding:12px 14px;margin-bottom:12px;text-align:center;font-size:13px;color:#9a3412;font-weight:600">
+          😴 오늘은 주말이에요.<br>
+          <span style="font-size:12px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 평일(월~금)에만 신청 가능합니다</span>
         </div>
         <div class="afield">
           <label class="alabel">전화번호</label>
@@ -1079,6 +1084,14 @@ function openVisitorModal(){
   document.getElementById('visitor-err').style.display = 'none';
   document.getElementById('visitor-form').style.display = 'block';
   document.getElementById('visitor-done').style.display = 'none';
+
+  // 주말 여부 체크
+  const dow = new Date().getDay(); // 0=일, 6=토
+  const isWeekend = (dow === 0 || dow === 6);
+  document.getElementById('visitor-weekend-box').style.display = isWeekend ? 'block' : 'none';
+  document.getElementById('visitor-submit-btn').disabled = isWeekend;
+  document.getElementById('visitor-submit-btn').textContent = isWeekend ? '평일에만 신청 가능합니다' : '첫방문 쿠폰 신청하기';
+
   document.getElementById('visitor-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1123,6 +1136,10 @@ function submitVisitorCoupon(){
         +'<div class="done-row"><span class="dl">혜택</span><span class="dv" style="color:#7c3aed">당일권 8시간 무료 쿠폰</span></div>'
         +'<div class="done-row"><span class="dl">발급 일시</span><span class="dv">'+nowStr()+'</span></div>';
       document.getElementById('visitor-done').style.display = 'block';
+    } else if(data.weekend){
+      errEl.textContent = '첫방문 쿠폰은 평일(월~금)에만 발급됩니다.';
+      errEl.style.display = 'block';
+      btn.disabled = true; btn.textContent = '평일에만 신청 가능합니다';
     } else if(data.duplicate){
       errEl.textContent = '이미 첫방문 쿠폰을 신청하셨습니다. (1회 한정)';
       errEl.style.display = 'block';

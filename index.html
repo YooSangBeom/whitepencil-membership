@@ -267,6 +267,23 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 .privacy-body .info-box p:last-child{margin-bottom:0}
 .privacy-footer-link{color:var(--accent);text-decoration:underline;cursor:pointer;font-size:11px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;padding:0}
 .privacy-footer-link:hover{color:var(--accent-mid)}
+/* ── 하단 방문자 카운터 ── */
+.footer-counter{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--text-hint);
+}
+
+.footer-counter img{
+  height:20px;
+  display:block;
+}
+
 </style>
 </head>
 <body>
@@ -593,12 +610,22 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 
 <footer>
   © 화이트펜슬 멤버십 요금 계산기 · 가산점 · 금천점 · 구로디지털단지역점
+
   <div style="margin-top:6px;font-size:10px;color:var(--text-hint);line-height:1.6">
     본 서비스는 할인 신청 처리를 위해 전화번호를 수집합니다.<br>
     수집된 정보는 할인 신청 처리 목적 외 사용되지 않으며, 서비스 종료 시 파기됩니다.
   </div>
+
   <div style="margin-top:8px">
     <button class="privacy-footer-link" onclick="openPrivacy()">개인정보처리방침</button>
+  </div>
+
+  <!-- 하단 방문자 카운터 -->
+  <div class="footer-counter">
+    <span>방문현황</span>
+    <img
+      src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fyoosangbeom.github.io%2Fwhitepencil-membership%2F&label=%EB%B0%A9%EB%AC%B8&icon=people-fill&color=%233C3489&style=flat&tz=Asia%2FSeoul"
+      alt="화이트펜슬 멤버십 방문자 카운터">
   </div>
 </footer>
 

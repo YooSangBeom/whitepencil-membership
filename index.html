@@ -278,12 +278,10 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   font-weight:700;
   color:var(--text-hint);
 }
-
 .footer-counter img{
   height:20px;
   display:block;
 }
-  
 </style>
 </head>
 <body>
@@ -621,7 +619,8 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   <div style="margin-top:8px">
     <button class="privacy-footer-link" onclick="openPrivacy()">개인정보처리방침</button>
   </div>
-    <!-- 하단 방문자 카운터 -->
+
+  <!-- 하단 방문자 카운터 -->
   <div class="footer-counter">
     <span>방문현황</span>
     <img
@@ -885,8 +884,16 @@ function verifyMember(){
     });
   }
 
-  jsonpCheckMember()
-    .catch(()=>{ btn.textContent='재시도 중...'; return jsonpCheckMember(); })
+  function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
+  function jsonpWithRetry(maxRetry){
+    return jsonpCheckMember().catch(err=>{
+      if (maxRetry <= 0) throw err;
+      btn.textContent='재시도 중...';
+      return delay(600).then(()=>jsonpWithRetry(maxRetry-1));
+    });
+  }
+
+  jsonpWithRetry(2)
     .then(data=>{
     btn.disabled=false; btn.textContent='조회';
     if(data.ok){
@@ -955,7 +962,7 @@ function verifyMember(){
     }
   }).catch(()=>{
     btn.disabled=false; btn.textContent='조회';
-    resEl.innerHTML='<div class="verify-fail-box" style="margin-top:10px"><span class="verify-fail-icon">⚠️</span><div><div class="verify-fail-text">서버 오류가 발생했습니다</div><div class="verify-fail-sub">잠시 후 다시 시도해주세요</div></div></div>';
+    resEl.innerHTML='<div class="verify-fail-box" style="margin-top:10px"><span class="verify-fail-icon">⚠️</span><div><div class="verify-fail-text">일시적으로 응답이 지연되고 있습니다</div><div class="verify-fail-sub">버튼을 다시 눌러 조회해주세요</div></div></div>';
   });
 }
 

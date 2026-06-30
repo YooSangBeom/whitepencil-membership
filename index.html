@@ -848,17 +848,22 @@ function verifyMember(){
 
   btn.disabled=true; btn.textContent='확인 중...';
 
-  const cbName='cb_'+Date.now();
-  const url=BRANCH_API[branch]+'?action=checkMember&phone='+raw+'&callback='+cbName;
+  function jsonpCheckMember(){
+    const cbName='cb_'+Date.now()+'_'+Math.floor(Math.random()*1000);
+    const url=BRANCH_API[branch]+'?action=checkMember&phone='+raw+'&callback='+cbName;
+    return new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      const timer=setTimeout(()=>{delete window[cbName];script.remove();reject(new Error('timeout'));},25000);
+      window[cbName]=(data)=>{clearTimeout(timer);delete window[cbName];script.remove();resolve(data);};
+      script.src=url;
+      script.onerror=()=>{clearTimeout(timer);script.remove();reject(new Error('error'));};
+      document.head.appendChild(script);
+    });
+  }
 
-  new Promise((resolve,reject)=>{
-    const script=document.createElement('script');
-    const timer=setTimeout(()=>{delete window[cbName];script.remove();reject(new Error('timeout'));},10000);
-    window[cbName]=(data)=>{clearTimeout(timer);delete window[cbName];script.remove();resolve(data);};
-    script.src=url;
-    script.onerror=()=>{clearTimeout(timer);reject(new Error('error'));};
-    document.head.appendChild(script);
-  }).then(data=>{
+  jsonpCheckMember()
+    .catch(()=>{ btn.textContent='재시도 중...'; return jsonpCheckMember(); })
+    .then(data=>{
     btn.disabled=false; btn.textContent='조회';
     if(data.ok){
       verifiedPhone=input.value;

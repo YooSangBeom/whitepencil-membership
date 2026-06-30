@@ -267,23 +267,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 .privacy-body .info-box p:last-child{margin-bottom:0}
 .privacy-footer-link{color:var(--accent);text-decoration:underline;cursor:pointer;font-size:11px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;padding:0}
 .privacy-footer-link:hover{color:var(--accent-mid)}
-/* ── 하단 방문자 카운터 ── */
-.footer-counter{
-  margin-top:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  font-size:11px;
-  font-weight:700;
-  color:var(--text-hint);
-}
-
-.footer-counter img{
-  height:20px;
-  display:block;
-}
-
 </style>
 </head>
 <body>
@@ -540,10 +523,11 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
         </div>
         <div class="visitor-notice">
           ⚠️ 전화번호당 <strong>1회만</strong> 신청 가능합니다.<br>
-          📅 <strong>평일(월~금)에만</strong> 발급 가능합니다.<br>
+          📅 <strong>평일(월~금) 오전 9시~오후 10시</strong>에만 발급 가능합니다.<br>
           QR 출석 체크 없이도 쿠폰이 발급되지만,<br>
           멤버십 회원 등록은 별도로 QR 출석이 필요합니다.<br>
-          신청 후 즉시 키오스크에서 사용 가능합니다.
+          신청 후 즉시 키오스크에서 사용 가능합니다.<br>
+          📍 방문하실 시간을 <strong>네이버 예약</strong>으로 예약 후 방문해 주시기 바랍니다.
         </div>
         <div class="visitor-weekend-box" id="visitor-weekend-box" style="display:none;background:#fff7ed;border:1px solid rgba(249,115,22,.3);border-radius:var(--rmd);padding:12px 14px;margin-bottom:12px;text-align:center;font-size:13px;color:#9a3412;font-weight:600">
           😴 오늘은 주말이에요.<br>
@@ -569,6 +553,9 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       <div class="done-icon">🎉</div>
       <div class="done-title">신청이 완료됐습니다!</div>
       <div class="done-sub">키오스크에서 바로 사용하실 수 있습니다 😊<br>QR 출석으로 멤버십 회원 등록도 해보세요!</div>
+      <div style="background:#eef2ff;border:1px solid rgba(79,70,229,.25);border-radius:var(--rmd);padding:12px 14px;margin:12px 0;text-align:center;font-size:13px;color:#4338ca;font-weight:600;line-height:1.5">
+        📅 방문하실 시간을 네이버 예약으로<br>예약 후 방문해 주시기 바랍니다
+      </div>
       <div class="done-info" id="visitor-done-info"></div>
       <button class="done-close" onclick="closeVisitorModal()">닫기</button>
     </div>
@@ -610,22 +597,12 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 
 <footer>
   © 화이트펜슬 멤버십 요금 계산기 · 가산점 · 금천점 · 구로디지털단지역점
-
   <div style="margin-top:6px;font-size:10px;color:var(--text-hint);line-height:1.6">
     본 서비스는 할인 신청 처리를 위해 전화번호를 수집합니다.<br>
     수집된 정보는 할인 신청 처리 목적 외 사용되지 않으며, 서비스 종료 시 파기됩니다.
   </div>
-
   <div style="margin-top:8px">
     <button class="privacy-footer-link" onclick="openPrivacy()">개인정보처리방침</button>
-  </div>
-
-  <!-- 하단 방문자 카운터 -->
-  <div class="footer-counter">
-    <span>방문현황</span>
-    <img
-      src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fyoosangbeom.github.io%2Fwhitepencil-membership%2F&label=%EB%B0%A9%EB%AC%B8&icon=people-fill&color=%233C3489&style=flat&tz=Asia%2FSeoul"
-      alt="화이트펜슬 멤버십 방문자 카운터">
   </div>
 </footer>
 
@@ -1112,12 +1089,26 @@ function openVisitorModal(){
   document.getElementById('visitor-form').style.display = 'block';
   document.getElementById('visitor-done').style.display = 'none';
 
-  // 주말 여부 체크
-  const dow = new Date().getDay(); // 0=일, 6=토
+  // 주말/시간 여부 체크
+  const now = new Date();
+  const dow = now.getDay(); // 0=일, 6=토
+  const hour = now.getHours();
   const isWeekend = (dow === 0 || dow === 6);
-  document.getElementById('visitor-weekend-box').style.display = isWeekend ? 'block' : 'none';
-  document.getElementById('visitor-submit-btn').disabled = isWeekend;
-  document.getElementById('visitor-submit-btn').textContent = isWeekend ? '평일에만 신청 가능합니다' : '첫방문 쿠폰 신청하기';
+  const isOutOfHours = (hour < 9 || hour >= 22);
+  const isBlocked = isWeekend || isOutOfHours;
+
+  const wbox = document.getElementById('visitor-weekend-box');
+  if (isWeekend) {
+    wbox.innerHTML = '😴 오늘은 주말이에요.<br><span style="font-size:12px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 평일(월~금)에만 신청 가능합니다</span>';
+    wbox.style.display = 'block';
+  } else if (isOutOfHours) {
+    wbox.innerHTML = '🌙 지금은 발급 시간이 아니에요.<br><span style="font-size:12px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 오전 9시~오후 10시에만 신청 가능합니다</span>';
+    wbox.style.display = 'block';
+  } else {
+    wbox.style.display = 'none';
+  }
+  document.getElementById('visitor-submit-btn').disabled = isBlocked;
+  document.getElementById('visitor-submit-btn').textContent = isBlocked ? '지금은 신청할 수 없습니다' : '첫방문 쿠폰 신청하기';
 
   document.getElementById('visitor-modal').classList.add('open');
   document.body.style.overflow = 'hidden';

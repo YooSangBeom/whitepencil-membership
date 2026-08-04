@@ -23,24 +23,16 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
-
-/* ── Header ── */
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05)}
 .header-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;height:54px;gap:10px}
 .logo-text{font-size:15px;font-weight:700;letter-spacing:-.02em}
 .logo-sub{font-size:11px;color:var(--text-hint)}
-
-/* ── Layout ── */
 main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
-
-/* ── Hero ── */
 .hero{text-align:center;margin-bottom:24px;animation:fadeUp .5s ease both}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,5vw,36px);font-weight:400;letter-spacing:-.02em;line-height:1.25;margin-bottom:8px}
 .hero h1 span{color:var(--accent)}
 .hero-desc{font-size:15px;color:var(--text-sub);margin-bottom:18px;line-height:1.7}
 .hero-desc strong{color:var(--accent);font-weight:700}
-
-/* ── 공지 박스 ── */
 .notice-box{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rlg);padding:14px 16px;text-align:left;position:relative;overflow:hidden}
 .notice-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);border-radius:3px 0 0 3px}
 .notice-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(249,115,22,.12)}
@@ -49,19 +41,13 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .notice-icon{font-size:14px;flex-shrink:0;margin-top:2px}
 .notice-title{font-size:12px;font-weight:700;color:#9a3412;line-height:1.4}
 .notice-sub{font-size:11px;color:#c2410c;margin-top:1px;line-height:1.5}
-
-/* ── Card ── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:18px;margin-bottom:12px;box-shadow:var(--sh);animation:fadeUp .4s ease both}
 .card-title{font-size:11px;font-weight:700;color:var(--text-hint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .card-title-num{width:18px;height:18px;background:var(--accent);color:#fff;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
-/* ── 지점 버튼 ── */
 .branch-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .branch-btn{padding:10px 8px;border:1px solid var(--border-md);border-radius:var(--rmd);background:var(--surface2);color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:all .14s}
 .branch-btn.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(60,52,137,.28)}
 .branch-btn:hover:not(.on){background:#e8e5de}
-
-/* ── 회원 확인 ── */
 .verify-box{background:var(--surface2);border-radius:var(--rmd);padding:14px;margin-top:12px}
 .verify-label{font-size:11px;font-weight:700;color:var(--text-hint);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
 .verify-row{display:flex;gap:8px}
@@ -74,20 +60,14 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .verify-search-btn{padding:10px 14px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .13s;flex-shrink:0}
 .verify-search-btn:hover{background:#3028a0}
 .verify-search-btn:disabled{opacity:.5;cursor:not-allowed}
-
-/* 회원 확인 결과 */
 .verify-result{display:none;margin-top:10px;border-radius:var(--rmd);overflow:hidden}
 .verify-ok-card{padding:14px 16px;display:flex;align-items:center;gap:14px}
 .verify-fail-box{background:var(--red-light);border:1px solid rgba(163,45,45,.15);border-radius:var(--rmd);padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
 .verify-fail-icon{font-size:20px;flex-shrink:0}
 .verify-fail-text{font-size:13px;font-weight:700;color:var(--red)}
 .verify-fail-sub{font-size:11px;color:#c05252;margin-top:2px}
-
-/* ── 첫방문 쿠폰 유도 버튼 ── */
 .visitor-coupon-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:99px;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(124,58,237,.35);transition:opacity .14s;width:100%;justify-content:center}
 .visitor-coupon-btn:hover{opacity:.9}
-
-/* ── 등급 그리드 ── */
 .grade-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 @media(max-width:460px){.grade-grid{grid-template-columns:repeat(3,1fr)}}
 .gc{border:1px solid var(--border);border-radius:var(--rmd);padding:11px 4px;text-align:center;cursor:pointer;transition:all .15s;background:var(--surface2)}
@@ -111,14 +91,10 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .grade-grid.locked .gc:not(.on):hover{background:var(--surface2);transform:none}
 .grade-lock-msg{font-size:11px;color:var(--text-hint);text-align:center;margin-top:8px;display:none}
 .grade-lock-msg.show{display:block}
-
-/* ── 카테고리 탭 ── */
 .cat-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
 .ctab{padding:6px 14px;border:1px solid var(--border-md);border-radius:99px;background:transparent;color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .13s}
 .ctab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
 .ctab:hover:not(.on){background:var(--surface2)}
-
-/* ── 요금제 그리드 ── */
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media(max-width:380px){.pgrid{grid-template-columns:1fr}}
 .pi{border:1px solid var(--border);border-radius:var(--rmd);padding:12px 14px;cursor:pointer;transition:all .13s;background:var(--surface2);position:relative}
@@ -131,8 +107,6 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .pi-price{font-size:15px;font-weight:700;color:var(--accent)}
 .pi-na{font-size:11px;color:var(--red);font-weight:500;margin-top:3px}
 .no-plan{font-size:13px;color:var(--text-hint);text-align:center;padding:18px;grid-column:1/-1}
-
-/* ── 결과 카드 ── */
 .result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;box-shadow:var(--sh-lg);animation:fadeUp .3s ease both;margin-bottom:12px}
 .result-head{background:var(--accent);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
 .result-head-label{font-size:11px;color:rgba(255,255,255,.65);font-weight:500}
@@ -152,20 +126,14 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .benefit-sub{font-size:11px;color:#5a9a2a;margin-top:1px}
 .result-no-benefit{padding:10px 18px;background:var(--surface2);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
 .result-no-benefit-text{font-size:12px;color:var(--text-hint)}
-
-/* ── 신청 버튼 ── */
 .apply-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .14s;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--accent)}
 .apply-btn:hover:not([disabled]){background:#3028a0}
 .apply-btn[disabled]{background:#bbb;cursor:not-allowed;opacity:.6}
 .apply-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-
-/* ── 신청 모달 공통 ── */
 .welcome-backdrop,.apply-backdrop,.visitor-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center;padding:16px}
 .welcome-backdrop.open,.apply-backdrop.open,.visitor-backdrop.open{display:flex;animation:fadeIn .2s ease both}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes popUp{from{opacity:0;transform:scale(.9) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
-
-/* ── 웰컴 모달 ── */
 .welcome-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
 .welcome-head{background:linear-gradient(135deg,#16a34a,#15803d);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
 .welcome-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
@@ -181,8 +149,6 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .welcome-submit{width:100%;padding:13px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer}
 .welcome-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#16a34a,#15803d)}
 .welcome-btn[disabled]{background:#bbb;cursor:not-allowed;opacity:.6}
-
-/* ── 할인신청 모달 ── */
 .apply-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
 .apply-head{background:var(--accent);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
 .apply-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
@@ -194,8 +160,6 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .apply-body{padding:16px}
 .apply-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:12px 14px;margin-bottom:14px;position:relative;overflow:hidden}
 .apply-notice::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
-
-/* ── 비회원쿠폰 모달 ── */
 .visitor-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
 .visitor-head{background:linear-gradient(135deg,#7c3aed,#6d28d9);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
 .visitor-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
@@ -212,8 +176,6 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .visitor-submit{width:100%;padding:13px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .14s}
 .visitor-submit:hover{opacity:.9}
 .visitor-submit:disabled{opacity:.5;cursor:not-allowed}
-
-/* ── 공통 폼 요소 ── */
 .afield{margin-bottom:12px}
 .alabel{display:block;font-size:10px;font-weight:700;color:var(--text-hint);letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
 .ainput{width:100%;padding:10px 12px;border:1.5px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;background:var(--surface);color:var(--text);transition:border-color .13s}
@@ -227,8 +189,6 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .asubmit:hover{background:#3028a0}
 .asubmit:active{transform:scale(.98)}
 .asubmit:disabled{opacity:.5;cursor:not-allowed}
-
-/* ── 완료 화면 ── */
 .apply-done{display:none;padding:32px 20px;text-align:center}
 .done-icon{font-size:48px;margin-bottom:12px}
 .done-title{font-size:19px;font-weight:700;margin-bottom:6px}
@@ -244,11 +204,8 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .done-notice-sub{font-size:11px;color:#c2410c;line-height:1.5}
 .done-close{width:100%;padding:11px;background:var(--surface2);border:1px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;color:var(--text-sub);cursor:pointer}
 .done-close:hover{background:#e0ddd6}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
-
-/* ── Privacy Modal ── */
 .privacy-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;padding:16px}
 .privacy-backdrop.open{display:flex;animation:fadeIn .2s ease both}
 .privacy-box{background:var(--surface);width:100%;max-width:500px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:85vh;display:flex;flex-direction:column}
@@ -267,21 +224,8 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 .privacy-body .info-box p:last-child{margin-bottom:0}
 .privacy-footer-link{color:var(--accent);text-decoration:underline;cursor:pointer;font-size:11px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;padding:0}
 .privacy-footer-link:hover{color:var(--accent-mid)}
-/* ── 하단 방문자 카운터 ── */
-.footer-counter{
-  margin-top:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  font-size:11px;
-  font-weight:700;
-  color:var(--text-hint);
-}
-.footer-counter img{
-  height:20px;
-  display:block;
-}
+.footer-counter{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-hint)}
+.footer-counter img{height:20px;display:block}
 </style>
 </head>
 <body>
@@ -298,7 +242,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 </header>
 
 <main>
-  <!-- Hero -->
   <div class="hero">
     <h1>내 등급 혜택 확인하고<br><span>할인 신청</span>까지 한번에</h1>
     <p class="hero-desc">지점과 등급을 선택하면 할인 요금과 적립 혜택을<br>바로 확인 후 <strong>할인 신청</strong>할 수 있어요</p>
@@ -341,7 +284,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
     </div>
   </div>
 
-  <!-- 1. 지점 + 회원 확인 -->
   <div class="card">
     <div class="card-title"><span class="card-title-num">1</span>지점 선택 및 회원 확인</div>
     <div class="branch-row">
@@ -349,7 +291,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       <button class="branch-btn" onclick="selBranch('geumcheon',this)">금천점</button>
       <button class="branch-btn" onclick="selBranch('guro',this)">구로디지털단지역점</button>
     </div>
-
     <div class="verify-box">
       <div class="verify-label">전화번호로 회원 확인</div>
       <div class="verify-row">
@@ -366,7 +307,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
     </div>
   </div>
 
-  <!-- 2. 등급 선택 -->
   <div class="card">
     <div class="card-title"><span class="card-title-num">2</span>내 등급 선택</div>
     <div class="grade-grid">
@@ -389,7 +329,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
     <div class="grade-lock-msg" id="grade-lock-msg">🔒 회원 확인된 등급이 자동 적용됩니다. 변경하려면 지점을 다시 선택해주세요.</div>
   </div>
 
-  <!-- 3. 요금제 선택 -->
   <div class="card">
     <div class="card-title"><span class="card-title-num">3</span>요금제 선택</div>
     <div class="cat-tabs">
@@ -401,11 +340,9 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
     <div class="pgrid" id="pgrid"></div>
   </div>
 
-  <!-- 결과 -->
   <div id="result"></div>
 </main>
 
-<!-- 새싹 웰컴 당일권 신청 모달 -->
 <div class="welcome-backdrop" id="welcome-modal" onclick="if(event.target===this)closeWelcomeModal()">
   <div class="welcome-box">
     <div class="welcome-head">
@@ -454,7 +391,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   </div>
 </div>
 
-<!-- 할인 신청 모달 -->
 <div class="apply-backdrop" id="apply-modal" onclick="if(event.target===this)closeApplyModal()">
   <div class="apply-box">
     <div class="apply-head">
@@ -519,7 +455,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   </div>
 </div>
 
-<!-- 비회원 첫방문 쿠폰 모달 -->
 <div class="visitor-backdrop" id="visitor-modal" onclick="if(event.target===this)closeVisitorModal()">
   <div class="visitor-box">
     <div class="visitor-head">
@@ -542,7 +477,8 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
           QR 출석 체크 없이도 쿠폰이 발급되지만,<br>
           멤버십 회원 등록은 별도로 QR 출석이 필요합니다.<br>
           신청 후 즉시 키오스크에서 사용 가능합니다.<br>
-          📍 방문하실 시간을 <strong>네이버 예약</strong>으로 예약 후 방문해 주시기 바랍니다.
+          📍 입장권 발급은 <strong>네이버 예약 후 예약일정 당일</strong>에 신청해 주세요.<br>
+          방문일이 아닌 날 발급 시 <strong>입장권이 삭제</strong>되며, 재발급이 어렵습니다.
         </div>
         <div class="visitor-weekend-box" id="visitor-weekend-box" style="display:none;background:#fff7ed;border:1px solid rgba(249,115,22,.3);border-radius:var(--rmd);padding:12px 14px;margin-bottom:12px;text-align:center;font-size:13px;color:#9a3412;font-weight:600">
           😴 오늘은 주말이에요.<br>
@@ -569,7 +505,8 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       <div class="done-title">신청이 완료됐습니다!</div>
       <div class="done-sub">키오스크에서 바로 사용하실 수 있습니다 😊<br>QR 출석으로 멤버십 회원 등록도 해보세요!</div>
       <div style="background:#eef2ff;border:1px solid rgba(79,70,229,.25);border-radius:var(--rmd);padding:12px 14px;margin:12px 0;text-align:center;font-size:13px;color:#4338ca;font-weight:600;line-height:1.5">
-        📅 방문하실 시간을 네이버 예약으로<br>예약 후 방문해 주시기 바랍니다
+        📅 입장권 발급은 네이버 예약 후<br>예약일정 당일에 신청해 주세요.<br>
+        <span style="font-size:12px;font-weight:500">방문일이 아닌 날 발급 시 입장권이 삭제되며<br>재발급이 어렵습니다.</span>
       </div>
       <div class="done-info" id="visitor-done-info"></div>
       <button class="done-close" onclick="closeVisitorModal()">닫기</button>
@@ -577,7 +514,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   </div>
 </div>
 
-<!-- 개인정보처리방침 모달 -->
 <div class="privacy-backdrop" id="privacy-modal" onclick="if(event.target===this)closePrivacy()">
   <div class="privacy-box">
     <div class="privacy-head">
@@ -619,8 +555,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   <div style="margin-top:8px">
     <button class="privacy-footer-link" onclick="openPrivacy()">개인정보처리방침</button>
   </div>
-
-  <!-- 하단 방문자 카운터 -->
   <div class="footer-counter">
     <span>방문현황</span>
     <img
@@ -630,7 +564,6 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 </footer>
 
 <script>
-// ── 데이터 ───────────────────────────────────────────────────
 const PRICES = {
   gasan:     {h50:80000,h100:140000,h200:250000,p2w:100000,p4w:160000,f2w:120000,f4w:180000,st20_4in:120000,st30_4in:180000},
   geumcheon: {h50:80000,h100:140000,h200:250000,p2w:100000,p4w:160000,f2w:140000,f4w:200000,st20_2in:90000,st30_2in:130000},
@@ -672,7 +605,6 @@ const SERVER_URL  = 'http://121.138.121.85:5000';
 let branch='gasan', grade='gold', cat='hourly', plan='h50';
 let verifiedPhone='', verifiedGrade='';
 
-// ── 유틸 ─────────────────────────────────────────────────────
 function fmt(n){return Number(n).toLocaleString('ko-KR')}
 function getPlans(){return cat==='study'?(CATS.study.plans[branch]||[]):CATS[cat].plans}
 function getPlanName(){const p=getPlans().find(x=>x.id===plan);return p?p.name:plan}
@@ -696,7 +628,6 @@ function benefitStr(benefit){
   return '없음';
 }
 
-// ── 다음 등급 프로그레스 ──────────────────────────────────────
 const GRADE_LEVELS = [
   {key:'saesak', name:'새싹펜슬', min:0},
   {key:'silver', name:'실버펜슬', min:50},
@@ -734,7 +665,6 @@ function getProgressHtml(total, gradeKey) {
   +'</div>';
 }
 
-// ── 렌더 ─────────────────────────────────────────────────────
 function renderPlans(){
   const plans=getPlans();
   const grid=document.getElementById('pgrid');
@@ -796,7 +726,6 @@ function renderResult(){
     +'</div>';
 }
 
-// ── 선택 핸들러 ───────────────────────────────────────────────
 function selBranch(b,el){
   branch=b;
   document.querySelectorAll('.branch-btn').forEach(e=>e.classList.remove('on'));
@@ -834,7 +763,6 @@ function selPlan(pid){
   plan=pid; renderPlans(); renderResult();
 }
 
-// ── 회원 확인 ─────────────────────────────────────────────────
 function fmtVerifyPhone(input){
   const v=input.value.replace(/\D/g,'');
   if(v.length<=3) input.value=v;
@@ -939,7 +867,6 @@ function verifyMember(){
         +getProgressHtml(data.totalCount, data.grade)
         +'</div>';
     } else {
-      // ── 비회원 조회 결과 — 첫방문 쿠폰 유도 버튼 포함 ──
       wrap.classList.add('err');
       resEl.innerHTML=
         '<div style="margin-top:10px">'
@@ -954,7 +881,6 @@ function verifyMember(){
               +'</div>'
             +'</div>'
           +'</div>'
-          // 첫방문 쿠폰 유도 버튼
           +'<button class="visitor-coupon-btn" onclick="openVisitorModal()">'
             +'⏰ 첫방문 8시간 쿠폰 신청하기 (비회원 전용 · 1회 한정)'
           +'</button>'
@@ -966,7 +892,6 @@ function verifyMember(){
   });
 }
 
-// ── 웰컴 당일권 모달 ──────────────────────────────────────────
 function openWelcomeModal(){
   if(!verifiedPhone) return;
   document.getElementById('welcome-phone').value  = verifiedPhone;
@@ -1033,7 +958,6 @@ function submitWelcome(){
   });
 }
 
-// ── 할인 신청 모달 ────────────────────────────────────────────
 function openApplyModal(){
   if(!plan||!verifiedPhone) return;
   const price=PRICES[branch][plan];
@@ -1115,7 +1039,6 @@ async function submitApply(){
   document.getElementById('apply-done').style.display='block';
 }
 
-// ── 비회원 첫방문 쿠폰 모달 ──────────────────────────────────
 function openVisitorModal(){
   const phone = document.getElementById('verify-phone').value.trim();
   if(!phone) return;
@@ -1125,9 +1048,8 @@ function openVisitorModal(){
   document.getElementById('visitor-form').style.display = 'block';
   document.getElementById('visitor-done').style.display = 'none';
 
-  // 주말/시간 여부 체크
   const now = new Date();
-  const dow = now.getDay(); // 0=일, 6=토
+  const dow = now.getDay();
   const hour = now.getHours();
   const isWeekend = (dow === 0 || dow === 6);
   const isOutOfHours = (hour < 9 || hour >= 22);
@@ -1154,6 +1076,9 @@ function closeVisitorModal(){
   document.body.style.overflow = '';
 }
 function submitVisitorCoupon(){
+  const confirmed = window.confirm('네이버 예약 확정 이후 방문일에 입장권을 발급해주세요.\n\n방문일이 아닌 날 발급 시 입장권이 삭제되며 재발급이 어렵습니다.\n\n계속 진행하시겠습니까?');
+  if(!confirmed) return;
+
   const btn   = document.getElementById('visitor-submit-btn');
   const errEl = document.getElementById('visitor-err');
   errEl.style.display = 'none';
@@ -1161,10 +1086,9 @@ function submitVisitorCoupon(){
 
   const phone      = document.getElementById('visitor-phone').value.trim().replace(/\D/g,'');
   const branchName = BRANCH_NAMES[branch];
-  const gasUrl     = BRANCH_API[branch]; // 각 지점 출첵 GAS URL
+  const gasUrl     = BRANCH_API[branch];
   const cbName     = 'vcb_' + Date.now();
 
-  // 쿠폰 발급은 Playwright 자동화라 최대 2분 소요 — 버튼 메시지로 진행 상황 안내
   let dotCount = 0;
   const loadingTimer = setInterval(function(){
     dotCount = (dotCount + 1) % 4;
@@ -1211,7 +1135,6 @@ function submitVisitorCoupon(){
   });
 }
 
-// ── 개인정보처리방침 모달 ─────────────────────────────────────
 function openPrivacy(){
   document.getElementById('privacy-modal').classList.add('open');
   document.body.style.overflow='hidden';
@@ -1221,7 +1144,6 @@ function closePrivacy(){
   document.body.style.overflow='';
 }
 
-// ── 초기화 ────────────────────────────────────────────────────
 renderPlans();
 renderResult();
 </script>

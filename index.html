@@ -22,51 +22,57 @@
   --sh-lg:0 8px 32px rgba(0,0,0,.10);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+.icon-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:block}
+.ic-inline{display:inline-block;vertical-align:-.14em;margin-right:.35em}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05)}
 .header-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;height:54px;gap:10px}
-.logo-text{font-size:15px;font-weight:700;letter-spacing:-.02em}
-.logo-sub{font-size:11px;color:var(--text-hint)}
-main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
+.logo-text{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.logo-sub{font-size:13px;color:var(--text-hint)}
+main{max-width:720px;margin:0 auto;padding:24px 16px 48px}
 .hero{text-align:center;margin-bottom:24px;animation:fadeUp .5s ease both}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(22px,5vw,36px);font-weight:400;letter-spacing:-.02em;line-height:1.25;margin-bottom:8px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(27px,6.5vw,38px);font-weight:400;letter-spacing:-.02em;line-height:1.25;margin-bottom:8px}
 .hero h1 span{color:var(--accent)}
-.hero-desc{font-size:15px;color:var(--text-sub);margin-bottom:18px;line-height:1.7}
+.hero-desc{font-size:17px;color:var(--text-sub);margin-bottom:18px;line-height:1.7}
 .hero-desc strong{color:var(--accent);font-weight:700}
 .notice-box{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rlg);padding:14px 16px;text-align:left;position:relative;overflow:hidden}
 .notice-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);border-radius:3px 0 0 3px}
-.notice-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(249,115,22,.12)}
-.notice-row:last-child{border-bottom:none;padding-bottom:0}
+.notice-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0}
+[data-visitor-coupon][hidden]{display:none !important}
+.notice-row+.notice-row{border-top:1px solid rgba(249,115,22,.12)}
 .notice-row:first-child{padding-top:0}
-.notice-icon{font-size:14px;flex-shrink:0;margin-top:2px}
-.notice-title{font-size:12px;font-weight:700;color:#9a3412;line-height:1.4}
-.notice-sub{font-size:11px;color:#c2410c;margin-top:1px;line-height:1.5}
+.notice-row:last-child{padding-bottom:0}
+.notice-icon{width:17px;height:17px;flex-shrink:0;margin-top:3px;color:var(--orange)}
+.notice-title{font-size:14px;font-weight:700;color:#9a3412;line-height:1.4}
+.notice-sub{font-size:13px;color:#c2410c;margin-top:1px;line-height:1.5}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:18px;margin-bottom:12px;box-shadow:var(--sh);animation:fadeUp .4s ease both}
-.card-title{font-size:11px;font-weight:700;color:var(--text-hint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.card-title-num{width:18px;height:18px;background:var(--accent);color:#fff;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-title{font-size:13px;font-weight:700;color:var(--text-hint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.card-title-num{width:18px;height:18px;background:var(--accent);color:#fff;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .branch-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.branch-btn{padding:10px 8px;border:1px solid var(--border-md);border-radius:var(--rmd);background:var(--surface2);color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:all .14s}
+.branch-btn{padding:10px 8px;border:1px solid var(--border-md);border-radius:var(--rmd);background:var(--surface2);color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:500;cursor:pointer;text-align:center;transition:all .14s}
 .branch-btn.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(60,52,137,.28)}
 .branch-btn:hover:not(.on){background:#e8e5de}
 .verify-box{background:var(--surface2);border-radius:var(--rmd);padding:14px;margin-top:12px}
-.verify-label{font-size:11px;font-weight:700;color:var(--text-hint);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.verify-label{font-size:13px;font-weight:700;color:var(--text-hint);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
 .verify-row{display:flex;gap:8px}
 .verify-input-wrap{flex:1;display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--border-md);border-radius:var(--rsm);overflow:hidden;transition:border-color .13s}
 .verify-input-wrap:focus-within{border-color:var(--accent-mid)}
 .verify-input-wrap.ok{border-color:#639922;background:#f8fef5}
 .verify-input-wrap.err{border-color:var(--red)}
-.verify-prefix{padding:10px 10px;font-size:12px;color:var(--text-hint);background:transparent;white-space:nowrap;border-right:1px solid var(--border-md);flex-shrink:0}
-.verify-input{flex:1;padding:10px 10px;border:none;outline:none;font-family:'Noto Sans KR',sans-serif;font-size:14px;background:transparent;color:var(--text)}
-.verify-search-btn{padding:10px 14px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .13s;flex-shrink:0}
+.verify-prefix{padding:10px 10px;font-size:14px;color:var(--text-hint);background:transparent;white-space:nowrap;border-right:1px solid var(--border-md);flex-shrink:0}
+.verify-input{flex:1;padding:10px 10px;border:none;outline:none;font-family:'Noto Sans KR',sans-serif;font-size:16px;background:transparent;color:var(--text)}
+.verify-search-btn{padding:10px 14px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .13s;flex-shrink:0}
 .verify-search-btn:hover{background:#3028a0}
 .verify-search-btn:disabled{opacity:.5;cursor:not-allowed}
 .verify-result{display:none;margin-top:10px;border-radius:var(--rmd);overflow:hidden}
 .verify-ok-card{padding:14px 16px;display:flex;align-items:center;gap:14px}
 .verify-fail-box{background:var(--red-light);border:1px solid rgba(163,45,45,.15);border-radius:var(--rmd);padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
-.verify-fail-icon{font-size:20px;flex-shrink:0}
-.verify-fail-text{font-size:13px;font-weight:700;color:var(--red)}
-.verify-fail-sub{font-size:11px;color:#c05252;margin-top:2px}
-.visitor-coupon-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:99px;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(124,58,237,.35);transition:opacity .14s;width:100%;justify-content:center}
+.verify-fail-icon{width:21px;height:21px;flex-shrink:0;margin-top:1px;stroke-width:1.6}
+.verify-fail-text{font-size:15px;font-weight:700;color:var(--red)}
+.verify-fail-sub{font-size:13px;color:#c05252;margin-top:2px}
+.visitor-coupon-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:99px;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(124,58,237,.35);transition:opacity .14s;width:100%;justify-content:center}
 .visitor-coupon-btn:hover{opacity:.9}
 .grade-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 @media(max-width:460px){.grade-grid{grid-template-columns:repeat(3,1fr)}}
@@ -83,16 +89,21 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .gc.gw.on .gc-icon{filter:drop-shadow(0 0 5px rgba(255,255,255,.8))}
 .gc.gw.on .gc-name{color:#e2e8f0;font-weight:700;text-shadow:0 0 8px rgba(167,139,250,.5)}
 .gc.gw.on .gc-disc{color:#a78bfa}
-.gc-icon{font-size:20px;margin-bottom:4px}
-.gc-name{font-size:11px;font-weight:600;color:var(--text)}
-.gc-disc{font-size:10px;color:var(--text-hint);margin-top:1px}
+.gc-icon{width:26px;height:26px;margin:0 auto 6px;stroke-width:1.6}
+.gc.gs  .gc-icon{color:#5F9220}
+.gc.gsi .gc-icon{color:#8A8880}
+.gc.gg  .gc-icon{color:var(--gold)}
+.gc.gd  .gc-icon{color:#3782D3}
+.gc.gw  .gc-icon{color:#6F63C9}
+.gc-name{font-size:13px;font-weight:600;color:var(--text)}
+.gc-disc{font-size:12px;color:var(--text-hint);margin-top:1px}
 .gc.on .gc-name{font-weight:700}
 .grade-grid.locked .gc:not(.on){opacity:.45;cursor:not-allowed;transform:none !important}
 .grade-grid.locked .gc:not(.on):hover{background:var(--surface2);transform:none}
-.grade-lock-msg{font-size:11px;color:var(--text-hint);text-align:center;margin-top:8px;display:none}
+.grade-lock-msg{font-size:13px;color:var(--text-hint);text-align:center;margin-top:8px;display:none}
 .grade-lock-msg.show{display:block}
 .cat-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.ctab{padding:6px 14px;border:1px solid var(--border-md);border-radius:99px;background:transparent;color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .13s}
+.ctab{padding:6px 14px;border:1px solid var(--border-md);border-radius:99px;background:transparent;color:var(--text-sub);font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all .13s}
 .ctab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
 .ctab:hover:not(.on){background:var(--surface2)}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -103,30 +114,30 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 .pi.on{border:2px solid var(--accent-mid);background:var(--accent-light)}
 .pi.on::before{background:var(--accent)}
 .pi.unavail{opacity:.38;cursor:not-allowed}
-.pi-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
-.pi-price{font-size:15px;font-weight:700;color:var(--accent)}
-.pi-na{font-size:11px;color:var(--red);font-weight:500;margin-top:3px}
-.no-plan{font-size:13px;color:var(--text-hint);text-align:center;padding:18px;grid-column:1/-1}
+.pi-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px}
+.pi-price{font-size:17px;font-weight:700;color:var(--accent)}
+.pi-na{font-size:13px;color:var(--red);font-weight:500;margin-top:3px}
+.no-plan{font-size:15px;color:var(--text-hint);text-align:center;padding:18px;grid-column:1/-1}
 .result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;box-shadow:var(--sh-lg);animation:fadeUp .3s ease both;margin-bottom:12px}
 .result-head{background:var(--accent);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
-.result-head-label{font-size:11px;color:rgba(255,255,255,.65);font-weight:500}
-.result-head-grade{font-size:13px;color:#fff;font-weight:700}
+.result-head-label{font-size:13px;color:rgba(255,255,255,.65);font-weight:500}
+.result-head-grade{font-size:15px;color:#fff;font-weight:700}
 .result-body{padding:0 18px}
-.result-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:16px}
 .result-row:last-child{border-bottom:none}
 .rl{color:var(--text-sub)}
 .rv{font-weight:600}
 .rv.disc{color:var(--red)}
 .result-total{padding:14px 18px;background:var(--surface2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.rt-label{font-size:13px;color:var(--text-sub);font-weight:500}
-.rt-val{font-size:26px;font-weight:700;color:var(--accent);letter-spacing:-.03em}
+.rt-label{font-size:15px;color:var(--text-sub);font-weight:500}
+.rt-val{font-size:30px;font-weight:700;color:var(--accent);letter-spacing:-.03em}
 .result-benefit{padding:12px 18px;background:var(--green-light);border-top:1px solid rgba(59,109,17,.1);display:flex;align-items:center;gap:10px}
-.benefit-icon{font-size:16px;flex-shrink:0}
-.benefit-text{font-size:13px;color:var(--green);font-weight:700}
-.benefit-sub{font-size:11px;color:#5a9a2a;margin-top:1px}
+.benefit-icon{width:19px;height:19px;flex-shrink:0;margin-top:2px}
+.benefit-text{font-size:15px;color:var(--green);font-weight:700}
+.benefit-sub{font-size:13px;color:#5a9a2a;margin-top:1px}
 .result-no-benefit{padding:10px 18px;background:var(--surface2);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.result-no-benefit-text{font-size:12px;color:var(--text-hint)}
-.apply-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .14s;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--accent)}
+.result-no-benefit-text{font-size:14px;color:var(--text-hint)}
+.apply-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .14s;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--accent)}
 .apply-btn:hover:not([disabled]){background:#3028a0}
 .apply-btn[disabled]{background:#bbb;cursor:not-allowed;opacity:.6}
 .apply-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
@@ -136,99 +147,140 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 80px}
 @keyframes popUp{from{opacity:0;transform:scale(.9) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .welcome-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
 .welcome-head{background:linear-gradient(135deg,#16a34a,#15803d);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
-.welcome-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
-.welcome-head-sub{font-size:11px;color:rgba(255,255,255,.75)}
-.welcome-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
+.welcome-head-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:2px}
+.welcome-head-sub{font-size:13px;color:rgba(255,255,255,.75)}
+.welcome-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
 .welcome-body{padding:16px}
 .welcome-info{background:var(--green-light);border:1px solid rgba(59,109,17,.15);border-radius:var(--rmd);padding:14px 16px;margin-bottom:14px;text-align:center}
-.welcome-info-icon{font-size:32px;margin-bottom:6px}
-.welcome-info-title{font-size:15px;font-weight:700;color:var(--green);margin-bottom:3px}
-.welcome-info-sub{font-size:12px;color:#5a9a2a;line-height:1.5}
-.welcome-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 14px;margin-bottom:14px;position:relative;overflow:hidden;font-size:12px;color:#9a3412;line-height:1.6}
+.welcome-info-icon{width:30px;height:30px;margin:0 auto 8px;stroke-width:1.5;color:#16a34a}
+.welcome-info-title{font-size:17px;font-weight:700;color:var(--green);margin-bottom:3px}
+.welcome-info-sub{font-size:14px;color:#5a9a2a;line-height:1.5}
+.welcome-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 14px;margin-bottom:14px;position:relative;overflow:hidden;font-size:14px;color:#9a3412;line-height:1.6}
 .welcome-notice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
-.welcome-submit{width:100%;padding:13px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer}
-.welcome-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#16a34a,#15803d)}
+.welcome-submit{width:100%;padding:13px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:16px;font-weight:700;cursor:pointer}
+.welcome-btn{width:100%;padding:14px;color:#fff;border:none;border-radius:0 0 var(--rlg) var(--rlg);font-family:"Noto Sans KR",sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#16a34a,#15803d)}
 .welcome-btn[disabled]{background:#bbb;cursor:not-allowed;opacity:.6}
 .apply-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
 .apply-head{background:var(--accent);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
-.apply-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
-.apply-head-sub{font-size:11px;color:rgba(255,255,255,.7)}
-.apply-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
+.apply-head-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:2px}
+.apply-head-sub{font-size:13px;color:rgba(255,255,255,.7)}
+.apply-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
 .apply-x:hover{background:rgba(255,255,255,.25)}
 .apply-summary{background:var(--accent-light);padding:10px 16px;display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid rgba(127,119,221,.15)}
-.apply-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--surface);color:var(--accent);border:1px solid rgba(127,119,221,.25)}
+.apply-badge{font-size:13px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--surface);color:var(--accent);border:1px solid rgba(127,119,221,.25)}
 .apply-body{padding:16px}
 .apply-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:12px 14px;margin-bottom:14px;position:relative;overflow:hidden}
 .apply-notice::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
 .visitor-box{background:var(--surface);width:100%;max-width:420px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
 .visitor-head{background:linear-gradient(135deg,#7c3aed,#6d28d9);padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between}
-.visitor-head-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
-.visitor-head-sub{font-size:11px;color:rgba(255,255,255,.75)}
-.visitor-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
+.visitor-head-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:2px}
+.visitor-head-sub{font-size:13px;color:rgba(255,255,255,.75)}
+.visitor-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px}
 .visitor-x:hover{background:rgba(255,255,255,.25)}
 .visitor-body{padding:16px}
 .visitor-info{background:#f5f3ff;border:1px solid rgba(124,58,237,.15);border-radius:var(--rmd);padding:14px 16px;margin-bottom:14px;text-align:center}
-.visitor-info-icon{font-size:36px;margin-bottom:6px}
-.visitor-info-title{font-size:15px;font-weight:700;color:#6d28d9;margin-bottom:3px}
-.visitor-info-sub{font-size:12px;color:#7c3aed;line-height:1.5}
-.visitor-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 14px;margin-bottom:14px;position:relative;overflow:hidden;font-size:12px;color:#9a3412;line-height:1.6}
+.visitor-info-icon{width:30px;height:30px;margin:0 auto 8px;stroke-width:1.5;color:var(--accent)}
+.visitor-info-title{font-size:17px;font-weight:700;color:#6d28d9;margin-bottom:3px}
+.visitor-info-sub{font-size:14px;color:#7c3aed;line-height:1.5}
+.visitor-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 14px;margin-bottom:14px;position:relative;overflow:hidden;font-size:14px;color:#9a3412;line-height:1.6}
 .visitor-notice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
-.visitor-submit{width:100%;padding:13px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .14s}
+.visitor-submit{width:100%;padding:13px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:var(--rsm);font-family:"Noto Sans KR",sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:opacity .14s}
 .visitor-submit:hover{opacity:.9}
 .visitor-submit:disabled{opacity:.5;cursor:not-allowed}
 .afield{margin-bottom:12px}
-.alabel{display:block;font-size:10px;font-weight:700;color:var(--text-hint);letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
-.ainput{width:100%;padding:10px 12px;border:1.5px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;background:var(--surface);color:var(--text);transition:border-color .13s}
+.alabel{display:block;font-size:12px;font-weight:700;color:var(--text-hint);letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.ainput{width:100%;padding:10px 12px;border:1.5px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:16px;background:var(--surface);color:var(--text);transition:border-color .13s}
 .ainput:focus{outline:none;border-color:var(--accent-mid)}
 .ainput.err{border-color:var(--red)}
 .ainput[readonly]{background:var(--surface2);color:var(--text-sub);cursor:default}
-.anote{font-size:11px;color:var(--text-hint);margin-top:4px}
+.anote{font-size:13px;color:var(--text-hint);margin-top:4px}
 .adivider{height:1px;background:var(--border);margin:14px 0}
-.aerr{display:none;color:var(--red);font-size:12px;margin-bottom:10px;padding:8px 12px;background:var(--red-light);border-radius:var(--rsm)}
-.asubmit{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .14s,transform .1s}
+.aerr{display:none;color:var(--red);font-size:14px;margin-bottom:10px;padding:8px 12px;background:var(--red-light);border-radius:var(--rsm)}
+.asubmit{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .14s,transform .1s}
 .asubmit:hover{background:#3028a0}
 .asubmit:active{transform:scale(.98)}
 .asubmit:disabled{opacity:.5;cursor:not-allowed}
 .apply-done{display:none;padding:32px 20px;text-align:center}
-.done-icon{font-size:48px;margin-bottom:12px}
-.done-title{font-size:19px;font-weight:700;margin-bottom:6px}
-.done-sub{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:16px}
+.done-icon{width:44px;height:44px;margin:0 auto 12px;stroke-width:1.4;color:#16a34a}
+.done-title{font-size:21px;font-weight:700;margin-bottom:6px}
+.done-sub{font-size:15px;color:var(--text-sub);line-height:1.6;margin-bottom:16px}
 .done-info{background:var(--surface2);border-radius:var(--rmd);padding:12px 14px;text-align:left;margin-bottom:12px}
-.done-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border)}
+.done-row{display:flex;justify-content:space-between;font-size:15px;padding:5px 0;border-bottom:1px solid var(--border)}
 .done-row:last-child{border-bottom:none}
 .dl{color:var(--text-sub)}
 .dv{font-weight:600}
 .done-notice{background:var(--orange-light);border:1px solid rgba(249,115,22,.25);border-radius:var(--rmd);padding:11px 13px;margin-bottom:12px;position:relative;overflow:hidden;display:none;text-align:left}
 .done-notice::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
-.done-notice-title{font-size:12px;font-weight:700;color:#9a3412;margin-bottom:2px}
-.done-notice-sub{font-size:11px;color:#c2410c;line-height:1.5}
-.done-close{width:100%;padding:11px;background:var(--surface2);border:1px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;color:var(--text-sub);cursor:pointer}
+.done-notice-title{font-size:14px;font-weight:700;color:#9a3412;margin-bottom:2px}
+.done-notice-sub{font-size:13px;color:#c2410c;line-height:1.5}
+.done-close{width:100%;padding:11px;background:var(--surface2);border:1px solid var(--border-md);border-radius:var(--rsm);font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:600;color:var(--text-sub);cursor:pointer}
 .done-close:hover{background:#e0ddd6}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
+footer{text-align:center;padding:20px;font-size:13px;color:var(--text-hint)}
 .privacy-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;padding:16px}
 .privacy-backdrop.open{display:flex;animation:fadeIn .2s ease both}
 .privacy-box{background:var(--surface);width:100%;max-width:500px;border-radius:var(--rxl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:popUp .25s cubic-bezier(.34,1.56,.64,1) both;max-height:85vh;display:flex;flex-direction:column}
 .privacy-head{background:var(--accent);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.privacy-head-title{font-size:15px;font-weight:700;color:#fff}
-.privacy-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.privacy-head-title{font-size:17px;font-weight:700;color:#fff}
+.privacy-x{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .privacy-x:hover{background:rgba(255,255,255,.25)}
-.privacy-body{padding:20px;overflow-y:auto;font-size:13px;line-height:1.8;color:var(--text-sub)}
-.privacy-body h3{font-size:13px;font-weight:700;color:var(--text);margin:16px 0 6px}
+.privacy-body{padding:20px;overflow-y:auto;font-size:15px;line-height:1.8;color:var(--text-sub)}
+.privacy-body h3{font-size:15px;font-weight:700;color:var(--text);margin:16px 0 6px}
 .privacy-body h3:first-child{margin-top:0}
-.privacy-body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.privacy-body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:14px}
 .privacy-body table th{background:var(--surface2);padding:7px 10px;text-align:left;border:1px solid var(--border-md);font-weight:600;color:var(--text)}
 .privacy-body table td{padding:7px 10px;border:1px solid var(--border);color:var(--text-sub)}
-.privacy-body .info-box{background:var(--surface2);border-radius:var(--rmd);padding:12px 14px;margin-top:16px;font-size:12px}
+.privacy-body .info-box{background:var(--surface2);border-radius:var(--rmd);padding:12px 14px;margin-top:16px;font-size:14px}
 .privacy-body .info-box p{margin-bottom:4px}
 .privacy-body .info-box p:last-child{margin-bottom:0}
-.privacy-footer-link{color:var(--accent);text-decoration:underline;cursor:pointer;font-size:11px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;padding:0}
+.privacy-footer-link{color:var(--accent);text-decoration:underline;cursor:pointer;font-size:13px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;padding:0}
 .privacy-footer-link:hover{color:var(--accent-mid)}
-.footer-counter{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-hint)}
+.footer-counter{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;color:var(--text-hint)}
 .footer-counter img{height:20px;display:block}
+
+/* ── 휴대폰 세로: 화면 폭을 최대한 쓰고 여백 낭비를 줄인다 ── */
+@media(max-width:520px){
+  main{padding:14px 9px 28px}
+  .card{padding:15px 12px;margin-bottom:10px}
+  .notice-box{padding:13px 12px}
+  .hero{margin-bottom:18px}
+  .hero-desc{margin-bottom:14px}
+  .verify-box{padding:12px 11px}
+  .header-inner{height:58px}
+  .result-body{padding:0 15px}
+  .result-head,.result-total{padding:14px 15px}
+  .result-benefit{padding:12px 15px}
+  .welcome-backdrop,.apply-backdrop,.visitor-backdrop,.privacy-backdrop{padding:10px 8px}
+}
 </style>
 </head>
 <body>
+
+<svg class="icon-sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 4.8 13.2a.6.6 0 0 0 .5 1H11l-1 7.3 8.2-10.7a.6.6 0 0 0-.5-1H12l1-7.3Z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.75"/><path d="M12 7.2v5.1l3.3 1.9"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.4 2.65 5.37 5.93.87-4.29 4.18 1.01 5.9L12 16.92l-5.3 2.8 1.01-5.9-4.29-4.18 5.93-.87L12 3.4Z"/></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24"><path d="M3.75 11.5h16.5v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V11.5Z"/><path d="M2.75 7.75h18.5v3.75H2.75z"/><path d="M12 7.75v13.5"/><path d="M12 7.75S10.6 2.75 8 2.75a2.5 2.5 0 0 0 0 5Z"/><path d="M12 7.75s1.4-5 4-5a2.5 2.5 0 0 1 0 5Z"/></symbol>
+<symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3.75 8.25V6.5a1.5 1.5 0 0 1 1.5-1.5h13.5a1.5 1.5 0 0 1 1.5 1.5v1.75a2.25 2.25 0 0 0 0 4.5v1.75a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-1.75a2.25 2.25 0 0 0 0-4.5Z"/><path d="M14 5v2.5M14 12.5V15"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.7 3.9 2.5 18a1.5 1.5 0 0 0 1.3 2.25h16.4A1.5 1.5 0 0 0 21.5 18L13.3 3.9a1.5 1.5 0 0 0-2.6 0Z"/><path d="M12 9.5v4"/><path d="M12 17h.01"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.75"/><path d="M12 11.25v4.75"/><path d="M12 8h.01"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.75"/><path d="m8.4 12.2 2.5 2.5 4.7-5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10.5" rx="1.75"/><path d="M7.75 10.5V7.25a4.25 4.25 0 0 1 8.5 0v3.25"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2.6s5.6 4 5.6 9.4a5.6 5.6 0 1 1-11.2 0c0-1.7.6-3.1 1.4-4.3.5 1.2 1.3 2 2.2 2 0-2.6.7-5 2-7.1Z"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.6A8.75 8.75 0 0 1 9.4 3.5a8.75 8.75 0 1 0 11.1 11.1Z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10.3c0 5-7 11-7 11s-7-6-7-11a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10.2" r="2.6"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M16.4 3.9a2.1 2.1 0 0 1 3 3L8.6 17.7l-4 1 1-4L16.4 3.9Z"/><path d="M14.5 5.8l3.7 3.7"/></symbol>
+<symbol id="i-note" viewBox="0 0 24 24"><path d="M8 4.5h8a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5V6A1.5 1.5 0 0 1 8 4.5Z"/><path d="M9.5 4.5V3h5v1.5"/><path d="M9.75 10h4.5M9.75 13.5h4.5M9.75 17h2.5"/></symbol>
+<symbol id="i-search-off" viewBox="0 0 24 24"><circle cx="10.75" cy="10.75" r="6.75"/><path d="m16 16 4.5 4.5"/><path d="m8.6 8.6 4.3 4.3M12.9 8.6l-4.3 4.3"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5.25" width="17" height="15.25" rx="1.75"/><path d="M3.5 10h17"/><path d="M8 3.5v3.5M16 3.5v3.5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+<symbol id="g-sprout" viewBox="0 0 24 24"><path d="M12 21v-8.5"/><path d="M12 12.5C12 8.9 9.1 6 5.5 6c0 3.6 2.9 6.5 6.5 6.5Z"/><path d="M12 12.5c0-3 2.4-5.4 5.4-5.4 0 3-2.4 5.4-5.4 5.4Z"/></symbol>
+<symbol id="g-pencil" viewBox="0 0 24 24"><path d="M15.6 2.9a2.2 2.2 0 0 1 3.1 3.1l-11 11-4.2 1.1 1.1-4.2 11-11Z"/><path d="m13.6 4.9 3.1 3.1"/><path d="M4 21h16"/></symbol>
+<symbol id="g-award" viewBox="0 0 24 24"><circle cx="12" cy="8.75" r="5.75"/><path d="m8.6 13.6-1.6 7.2 5-2.6 5 2.6-1.6-7.2"/></symbol>
+<symbol id="g-diamond" viewBox="0 0 24 24"><path d="M6 3.5h12l3.25 5.25L12 20.5 2.75 8.75 6 3.5Z"/><path d="M2.75 8.75h18.5"/><path d="m9 3.5-1.5 5.25L12 20.5l4.5-11.75L15 3.5"/></symbol>
+<symbol id="g-crown" viewBox="0 0 24 24"><path d="M3 7.5 6.5 12 12 4.5 17.5 12 21 7.5v9.75a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.25V7.5Z"/><path d="M3 15h18"/></symbol>
+</defs></svg>
 
 <header>
   <div class="header-inner">
@@ -244,40 +296,33 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 <main>
   <div class="hero">
     <h1>내 등급 혜택 확인하고<br><span>할인 신청</span>까지 한번에</h1>
-    <p class="hero-desc">지점과 등급을 선택하면 할인 요금과 적립 혜택을<br>바로 확인 후 <strong>할인 신청</strong>할 수 있어요</p>
+    <p class="hero-desc">지점과 등급을 선택하면 할인 요금과 적립 혜택을<br>바로 확인하고 <strong>할인 신청</strong>까지 할 수 있습니다</p>
     <div class="notice-box">
       <div class="notice-row">
-        <span class="notice-icon">📅</span>
+        <svg class="ic notice-icon"><use href="#i-bolt"/></svg>
         <div>
-          <div class="notice-title">할인 쿠폰은 신청 후 5분 이내 즉시 발급됩니다</div>
-          <div class="notice-sub">서버 장애 시에는 사용 1일 전 카카오 고객센터를 통해 요청해 주세요</div>
+          <div class="notice-title">할인 쿠폰은 신청 후 5분 이내 발급되며, 발급 즉시 구매에 적용됩니다</div>
+          <div class="notice-sub">서버 장애 시에는 사용 1일 전까지 지점 카카오 고객센터로 요청해 주세요</div>
         </div>
       </div>
       <div class="notice-row">
-        <span class="notice-icon">🕛</span>
+        <svg class="ic notice-icon"><use href="#i-star"/></svg>
         <div>
-          <div class="notice-title">정상 상황에서는 5분 이내 즉시 발급 · 발급 후 바로 구매 적용 가능합니다</div>
-          <div class="notice-sub">서버 장애 시에는 사용 1일 전 카카오 고객센터를 통해 요청해 주시면 바로 처리해 드려요 😊</div>
+          <div class="notice-title">골드펜슬 이상 등급의 적립·기간 추가 혜택은 자동 적용되지 않습니다</div>
+          <div class="notice-sub">네이버 리뷰 캡처를 지점 카카오 고객센터로 보내주시면 적용해 드립니다</div>
         </div>
       </div>
       <div class="notice-row">
-        <span class="notice-icon">⭐</span>
+        <svg class="ic notice-icon"><use href="#i-gift"/></svg>
         <div>
-          <div class="notice-title">골드펜슬 이상 등급 혜택 — 적립·기간 추가 &amp; 네이버 리뷰 추가 적립은 자동 적용되지 않아요</div>
-          <div class="notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div>
+          <div class="notice-title">새싹·실버펜슬은 네이버 리뷰 작성 시 10시간 당일권을 드립니다</div>
+          <div class="notice-sub">매월 1회 참여 가능 · 리뷰 캡처를 지점 카카오 고객센터로 보내주세요</div>
         </div>
       </div>
-      <div class="notice-row">
-        <span class="notice-icon">🎁</span>
+      <div class="notice-row" data-visitor-coupon hidden>
+        <svg class="ic notice-icon"><use href="#i-clock"/></svg>
         <div>
-          <div class="notice-title">새싹·실버펜슬 — 네이버 리뷰 작성 시 10시간 당일권 증정 (매월 1회 참여가능)</div>
-          <div class="notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div>
-        </div>
-      </div>
-      <div class="notice-row">
-        <span class="notice-icon">⏰</span>
-        <div>
-          <div class="notice-title">처음 방문하시나요? 비회원도 8시간 당일권 무료 쿠폰을 받을 수 있어요!</div>
+          <div class="notice-title">첫 방문이시라면 비회원도 8시간 당일권 무료 쿠폰을 받으실 수 있습니다</div>
           <div class="notice-sub">평일(월~금)에만 신청 가능 · 전화번호 조회 후 비회원으로 확인되면 신청 버튼이 나타납니다 · 전화번호당 1회 한정</div>
         </div>
       </div>
@@ -295,7 +340,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       <div class="verify-label">전화번호로 회원 확인</div>
       <div class="verify-row">
         <div class="verify-input-wrap" id="verify-wrap">
-          <span class="verify-prefix">🇰🇷 +82</span>
+          <span class="verify-prefix">+82</span>
           <input class="verify-input" id="verify-phone" type="tel" inputmode="numeric"
             placeholder="010-0000-0000" maxlength="13"
             oninput="fmtVerifyPhone(this)"
@@ -311,22 +356,22 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
     <div class="card-title"><span class="card-title-num">2</span>내 등급 선택</div>
     <div class="grade-grid">
       <div class="gc gs" onclick="selGrade('saesak',this)">
-        <div class="gc-icon">🌱</div><div class="gc-name">새싹펜슬</div><div class="gc-disc">할인 없음</div>
+        <svg class="ic gc-icon"><use href="#g-sprout"/></svg><div class="gc-name">새싹펜슬</div><div class="gc-disc">할인 없음</div>
       </div>
       <div class="gc gsi" onclick="selGrade('silver',this)">
-        <div class="gc-icon">🥈</div><div class="gc-name">실버펜슬</div><div class="gc-disc">5% 할인</div>
+        <svg class="ic gc-icon"><use href="#g-pencil"/></svg><div class="gc-name">실버펜슬</div><div class="gc-disc">5% 할인</div>
       </div>
       <div class="gc gg on" onclick="selGrade('gold',this)">
-        <div class="gc-icon">🥇</div><div class="gc-name">골드펜슬</div><div class="gc-disc">10% 할인</div>
+        <svg class="ic gc-icon"><use href="#g-award"/></svg><div class="gc-name">골드펜슬</div><div class="gc-disc">10% 할인</div>
       </div>
       <div class="gc gd" onclick="selGrade('diamond',this)">
-        <div class="gc-icon">💎</div><div class="gc-name">다이아펜슬</div><div class="gc-disc">15% 할인</div>
+        <svg class="ic gc-icon"><use href="#g-diamond"/></svg><div class="gc-name">다이아펜슬</div><div class="gc-disc">15% 할인</div>
       </div>
       <div class="gc gw" onclick="selGrade('white',this)">
-        <div class="gc-icon">👑</div><div class="gc-name">화이트펜슬</div><div class="gc-disc">20% 할인</div>
+        <svg class="ic gc-icon"><use href="#g-crown"/></svg><div class="gc-name">화이트펜슬</div><div class="gc-disc">20% 할인</div>
       </div>
     </div>
-    <div class="grade-lock-msg" id="grade-lock-msg">🔒 회원 확인된 등급이 자동 적용됩니다. 변경하려면 지점을 다시 선택해주세요.</div>
+    <div class="grade-lock-msg" id="grade-lock-msg"><svg class="ic ic-inline" style="width:12px;height:12px"><use href="#i-lock"/></svg>회원 확인된 등급이 자동 적용됩니다. 변경하려면 지점을 다시 선택해 주세요.</div>
   </div>
 
   <div class="card">
@@ -347,20 +392,20 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   <div class="welcome-box">
     <div class="welcome-head">
       <div>
-        <div class="welcome-head-title">🎁 웰컴 당일권 신청</div>
+        <div class="welcome-head-title">웰컴 당일권 신청</div>
         <div class="welcome-head-sub">새싹펜슬 회원 전용 · 1회 한정 혜택</div>
       </div>
-      <button class="welcome-x" onclick="closeWelcomeModal()">✕</button>
+      <button class="welcome-x" onclick="closeWelcomeModal()" aria-label="닫기"><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
     </div>
     <div class="welcome-body" id="welcome-form">
       <div class="welcome-info">
-        <div class="welcome-info-icon">🌱</div>
+        <svg class="ic welcome-info-icon"><use href="#g-sprout"/></svg>
         <div class="welcome-info-title">당일권 2시간 무료 이용권</div>
         <div class="welcome-info-sub">가입 후 1회 한정으로 제공되는 웰컴 혜택입니다<br>신청 후 자정에 일괄 발급됩니다</div>
       </div>
       <div class="welcome-notice">
-        ⚠️ 본 혜택은 <strong>1회 한정</strong>으로, 중복 신청이 불가합니다.<br>
-        신청 완료 후 다음날 0시 이후 방문 시 적용됩니다.
+        <svg class="ic ic-inline" style="width:13px;height:13px"><use href="#i-alert"/></svg>본 혜택은 <strong>1회 한정</strong>으로 중복 신청이 불가합니다.<br>
+        신청 완료 후 다음 날 0시 이후 방문 시 적용됩니다.
       </div>
       <div class="afield">
         <label class="alabel">전화번호</label>
@@ -382,9 +427,9 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       <button class="welcome-submit" id="welcome-submit-btn" onclick="submitWelcome()">웰컴 당일권 신청하기</button>
     </div>
     <div class="apply-done" id="welcome-done">
-      <div class="done-icon">🎉</div>
-      <div class="done-title">신청이 완료됐습니다!</div>
-      <div class="done-sub">내일 0시 이후 방문 시 당일권 2시간을 무료로 이용하실 수 있습니다 😊</div>
+      <svg class="ic done-icon"><use href="#i-check"/></svg>
+      <div class="done-title">신청이 완료되었습니다</div>
+      <div class="done-sub">내일 0시 이후 방문하시면 당일권 2시간을 무료로 이용하실 수 있습니다</div>
       <div class="done-info" id="welcome-done-info"></div>
       <button class="done-close" onclick="closeWelcomeModal()">닫기</button>
     </div>
@@ -395,25 +440,21 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   <div class="apply-box">
     <div class="apply-head">
       <div>
-        <div class="apply-head-title">✏️ 멤버십 할인 신청</div>
+        <div class="apply-head-title">멤버십 할인 신청</div>
         <div class="apply-head-sub">선택하신 요금제로 할인 신청을 진행합니다</div>
       </div>
-      <button class="apply-x" onclick="closeApplyModal()">✕</button>
+      <button class="apply-x" onclick="closeApplyModal()" aria-label="닫기"><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
     </div>
     <div class="apply-summary" id="apply-summary"></div>
     <div class="apply-body" id="apply-form">
       <div class="apply-notice">
         <div class="notice-row" style="padding-top:0">
-          <span class="notice-icon">📅</span>
-          <div><div class="notice-title">할인 쿠폰은 신청 후 5분 이내 즉시 발급됩니다</div><div class="notice-sub">서버 장애 시에는 사용 1일 전 카카오 고객센터를 통해 요청해 주세요</div></div>
-        </div>
-        <div class="notice-row">
-          <span class="notice-icon">🕛</span>
-          <div><div class="notice-title">정상 상황에서는 5분 이내 즉시 발급 · 발급 후 바로 구매 적용 가능합니다</div><div class="notice-sub">서버 장애 시에는 사용 1일 전 카카오 고객센터를 통해 요청해 주시면 바로 처리해 드려요 😊</div></div>
+          <svg class="ic notice-icon"><use href="#i-bolt"/></svg>
+          <div><div class="notice-title">할인 쿠폰은 신청 후 5분 이내 발급되며, 발급 즉시 구매에 적용됩니다</div><div class="notice-sub">서버 장애 시에는 사용 1일 전까지 지점 카카오 고객센터로 요청해 주세요</div></div>
         </div>
         <div class="notice-row" style="padding-bottom:0;border-bottom:none">
-          <span class="notice-icon">⭐</span>
-          <div><div class="notice-title">골드펜슬 이상 등급 혜택 — 적립·기간 추가 &amp; 네이버 리뷰 추가 적립은 자동 적용되지 않아요</div><div class="notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div></div>
+          <svg class="ic notice-icon"><use href="#i-star"/></svg>
+          <div><div class="notice-title">골드펜슬 이상 등급의 적립·기간 추가 혜택은 자동 적용되지 않습니다</div><div class="notice-sub">네이버 리뷰 캡처를 지점 카카오 고객센터로 보내주시면 적용해 드립니다</div></div>
         </div>
       </div>
       <div class="afield">
@@ -442,13 +483,13 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       <button class="asubmit" onclick="submitApply()">할인 신청하기</button>
     </div>
     <div class="apply-done" id="apply-done">
-      <div class="done-icon">🎉</div>
-      <div class="done-title">신청이 완료됐습니다!</div>
-      <div class="done-sub">담당자 확인 후 자정에 할인이 적용됩니다.</div>
+      <svg class="ic done-icon"><use href="#i-check"/></svg>
+      <div class="done-title">신청이 완료되었습니다</div>
+      <div class="done-sub">담당자 확인 후 자정에 할인이 적용됩니다</div>
       <div class="done-info" id="apply-done-info"></div>
       <div class="done-notice" id="apply-done-notice">
-        <div class="done-notice-title">📌 추가 적립 및 기간 안내</div>
-        <div class="done-notice-sub">리뷰 캡처 후 지점 카카오 고객센터로 문의해 주시면 바로 적용해 드려요 😊</div>
+        <div class="done-notice-title"><svg class="ic ic-inline" style="width:12px;height:12px"><use href="#i-info"/></svg>추가 적립 및 기간 안내</div>
+        <div class="done-notice-sub">네이버 리뷰 캡처를 지점 카카오 고객센터로 보내주시면 적용해 드립니다</div>
       </div>
       <button class="done-close" onclick="closeApplyModal()">닫기</button>
     </div>
@@ -459,30 +500,30 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   <div class="visitor-box">
     <div class="visitor-head">
       <div>
-        <div class="visitor-head-title">🎁 첫방문 8시간 쿠폰</div>
+        <div class="visitor-head-title">첫방문 8시간 쿠폰</div>
         <div class="visitor-head-sub">비회원 전용 · 전화번호당 1회 한정</div>
       </div>
-      <button class="visitor-x" onclick="closeVisitorModal()">✕</button>
+      <button class="visitor-x" onclick="closeVisitorModal()" aria-label="닫기"><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
     </div>
     <div id="visitor-form">
       <div class="visitor-body">
         <div class="visitor-info">
-          <div class="visitor-info-icon">⏰</div>
+          <svg class="ic visitor-info-icon"><use href="#i-ticket"/></svg>
           <div class="visitor-info-title">당일권 8시간 무료 쿠폰</div>
           <div class="visitor-info-sub">화이트펜슬을 처음 방문하시는 분께<br>8시간 당일권을 무료로 드립니다</div>
         </div>
         <div class="visitor-notice">
-          ⚠️ 전화번호당 <strong>1회만</strong> 신청 가능합니다.<br>
-          📅 <strong>평일(월~금) 오전 9시~오후 10시</strong>에만 발급 가능합니다.<br>
-          QR 출석 체크 없이도 쿠폰이 발급되지만,<br>
-          멤버십 회원 등록은 별도로 QR 출석이 필요합니다.<br>
-          신청 후 즉시 키오스크에서 사용 가능합니다.<br>
-          📍 입장권 발급은 <strong>네이버 예약 후 예약일정 당일</strong>에 신청해 주세요.<br>
-          방문일이 아닌 날 발급 시 <strong>입장권이 삭제</strong>되며, 재발급이 어렵습니다.
+          <svg class="ic ic-inline" style="width:13px;height:13px"><use href="#i-alert"/></svg>전화번호당 <strong>1회만</strong> 신청 가능합니다.<br>
+          <svg class="ic ic-inline" style="width:13px;height:13px"><use href="#i-calendar"/></svg><strong>평일(월~금) 오전 9시~오후 10시</strong>에만 발급됩니다.<br>
+          QR 출석 체크 없이도 쿠폰은 발급되지만,<br>
+          멤버십 회원 등록에는 별도로 QR 출석이 필요합니다.<br>
+          신청 후 바로 키오스크에서 사용하실 수 있습니다.<br>
+          <svg class="ic ic-inline" style="width:13px;height:13px"><use href="#i-pin"/></svg>입장권 발급은 <strong>네이버 예약 후 예약일정 당일</strong>에 신청해 주세요.<br>
+          방문일이 아닌 날 발급하면 <strong>입장권이 삭제</strong>되며 재발급이 어렵습니다.
         </div>
-        <div class="visitor-weekend-box" id="visitor-weekend-box" style="display:none;background:#fff7ed;border:1px solid rgba(249,115,22,.3);border-radius:var(--rmd);padding:12px 14px;margin-bottom:12px;text-align:center;font-size:13px;color:#9a3412;font-weight:600">
-          😴 오늘은 주말이에요.<br>
-          <span style="font-size:12px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 평일(월~금)에만 신청 가능합니다</span>
+        <div class="visitor-weekend-box" id="visitor-weekend-box" style="display:none;background:#fff7ed;border:1px solid rgba(249,115,22,.3);border-radius:var(--rmd);padding:12px 14px;margin-bottom:12px;text-align:center;font-size:15px;color:#9a3412;font-weight:600">
+          <svg class="ic ic-inline" style="width:14px;height:14px"><use href="#i-moon"/></svg>오늘은 주말입니다.<br>
+          <span style="font-size:14px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 평일(월~금)에만 신청 가능합니다</span>
         </div>
         <div class="afield">
           <label class="alabel">전화번호</label>
@@ -501,12 +542,12 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
       </div>
     </div>
     <div class="apply-done" id="visitor-done">
-      <div class="done-icon">🎉</div>
-      <div class="done-title">신청이 완료됐습니다!</div>
-      <div class="done-sub">키오스크에서 바로 사용하실 수 있습니다 😊<br>QR 출석으로 멤버십 회원 등록도 해보세요!</div>
-      <div style="background:#eef2ff;border:1px solid rgba(79,70,229,.25);border-radius:var(--rmd);padding:12px 14px;margin:12px 0;text-align:center;font-size:13px;color:#4338ca;font-weight:600;line-height:1.5">
-        📅 입장권 발급은 네이버 예약 후<br>예약일정 당일에 신청해 주세요.<br>
-        <span style="font-size:12px;font-weight:500">방문일이 아닌 날 발급 시 입장권이 삭제되며<br>재발급이 어렵습니다.</span>
+      <svg class="ic done-icon"><use href="#i-check"/></svg>
+      <div class="done-title">신청이 완료되었습니다</div>
+      <div class="done-sub">키오스크에서 바로 사용하실 수 있습니다<br>QR 출석을 하시면 멤버십 회원으로도 등록됩니다</div>
+      <div style="background:#eef2ff;border:1px solid rgba(79,70,229,.25);border-radius:var(--rmd);padding:12px 14px;margin:12px 0;text-align:center;font-size:15px;color:#4338ca;font-weight:600;line-height:1.5">
+        <svg class="ic ic-inline" style="width:13px;height:13px"><use href="#i-calendar"/></svg>입장권 발급은 네이버 예약 후<br>예약일정 당일에 신청해 주세요.<br>
+        <span style="font-size:14px;font-weight:500">방문일이 아닌 날 발급 시 입장권이 삭제되며<br>재발급이 어렵습니다.</span>
       </div>
       <div class="done-info" id="visitor-done-info"></div>
       <button class="done-close" onclick="closeVisitorModal()">닫기</button>
@@ -518,7 +559,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
   <div class="privacy-box">
     <div class="privacy-head">
       <span class="privacy-head-title">개인정보처리방침</span>
-      <button class="privacy-x" onclick="closePrivacy()">✕</button>
+      <button class="privacy-x" onclick="closePrivacy()" aria-label="닫기"><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
     </div>
     <div class="privacy-body">
       <p>화이트펜슬 스터디카페 가산점(이하 "운영자")은 개인정보보호법에 따라 이용자의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 다음과 같이 개인정보처리방침을 수립·공개합니다.</p>
@@ -548,7 +589,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--text-hint)}
 
 <footer>
   © 화이트펜슬 멤버십 요금 계산기 · 가산점 · 금천점 · 구로디지털단지역점
-  <div style="margin-top:6px;font-size:10px;color:var(--text-hint);line-height:1.6">
+  <div style="margin-top:6px;font-size:12px;color:var(--text-hint);line-height:1.6">
     본 서비스는 할인 신청 처리를 위해 전화번호를 수집합니다.<br>
     수집된 정보는 할인 신청 처리 목적 외 사용되지 않으며, 서비스 종료 시 파기됩니다.
   </div>
@@ -580,12 +621,23 @@ const CATS = {
   }}
 };
 const GRADES = {
-  saesak:  {name:'새싹펜슬',  icon:'🌱',disc:0},
-  silver:  {name:'실버펜슬',  icon:'🥈',disc:.05},
-  gold:    {name:'골드펜슬',  icon:'🥇',disc:.10},
-  diamond: {name:'다이아펜슬',icon:'💎',disc:.15},
-  white:   {name:'화이트펜슬',icon:'👑',disc:.20}
+  saesak:  {name:'새싹펜슬',  sym:'g-sprout', disc:0},
+  silver:  {name:'실버펜슬',  sym:'g-pencil', disc:.05},
+  gold:    {name:'골드펜슬',  sym:'g-award',  disc:.10},
+  diamond: {name:'다이아펜슬',sym:'g-diamond',disc:.15},
+  white:   {name:'화이트펜슬',sym:'g-crown',  disc:.20}
 };
+// 아이콘 — px=0이면 클래스로 크기를 정한다
+function ic(sym, px, cls){
+  const c = cls ? 'ic '+cls : 'ic ic-inline';
+  const s = px ? ' style="width:'+px+'px;height:'+px+'px"' : '';
+  return '<svg class="'+c+'"'+s+'><use href="#'+sym+'"/></svg>';
+}
+// 등급 마크 — 스프라이트의 심볼을 원하는 크기로 꺼내 쓴다
+function gmark(key, px){
+  return '<svg class="ic ic-inline" style="width:'+px+'px;height:'+px+'px">'
+       + '<use href="#'+GRADES[key].sym+'"/></svg>';
+}
 const BENEFITS = {
   saesak:  {p2:0,p4:0,h50:0, h100:0, h200:0, study:0},
   silver:  {p2:0,p4:0,h50:0, h100:0, h200:0, study:0},
@@ -604,6 +656,36 @@ const SERVER_URL  = 'http://121.138.121.85:5000';
 
 let branch='gasan', grade='gold', cat='hourly', plan='h50';
 let verifiedPhone='', verifiedGrade='';
+
+// ── 첫방문 쿠폰 노출 제어 ─────────────────────────────────
+// 쿠폰서버(visitor_coupon/toggle)에서 지점별로 발급을 중단하면
+// 안내 문구·신청 버튼·모달까지 전부 감춰 고객 눈에 띄지 않게 한다.
+// 상태를 못 읽으면 발급도 불가능하므로 '숨김'으로 닫아둔다.
+let visitorCouponOn = false;
+
+function applyVisitorCouponUI(){
+  document.querySelectorAll('[data-visitor-coupon]').forEach(function(el){
+    if(visitorCouponOn) el.removeAttribute('hidden');
+    else                el.setAttribute('hidden','');
+  });
+  if(!visitorCouponOn){
+    const m=document.getElementById('visitor-modal');
+    if(m && m.classList.contains('open')) closeVisitorModal();
+  }
+}
+
+function refreshVisitorCouponStatus(){
+  const cbName='vcs_'+Date.now();
+  const s=document.createElement('script');
+  const finish=function(on){ visitorCouponOn=!!on; applyVisitorCouponUI(); };
+  const cleanup=function(){ delete window[cbName]; if(s.parentNode) s.remove(); };
+  const timer=setTimeout(function(){ cleanup(); finish(false); }, 8000);
+  window[cbName]=function(d){ clearTimeout(timer); cleanup(); finish(d && d.enabled); };
+  s.onerror=function(){ clearTimeout(timer); cleanup(); finish(false); };
+  s.src=BRANCH_API[branch]+'?action=visitor_coupon_status&branch='
+       +encodeURIComponent(BRANCH_NAMES[branch])+'&callback='+cbName;
+  document.head.appendChild(s);
+}
 
 function fmt(n){return Number(n).toLocaleString('ko-KR')}
 function getPlans(){return cat==='study'?(CATS.study.plans[branch]||[]):CATS[cat].plans}
@@ -640,25 +722,25 @@ function getProgressHtml(total, gradeKey) {
   const cur = GRADE_LEVELS[idx];
   const next = GRADE_LEVELS[idx+1];
   if(!next) {
-    return '<div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.5);border-radius:var(--rsm);text-align:center;font-size:12px;font-weight:700;color:inherit">👑 최고 등급 달성!</div>';
+    return '<div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.5);border-radius:var(--rsm);text-align:center;font-size:14px;font-weight:700;color:inherit">'+gmark('white',15)+'최고 등급입니다</div>';
   }
   const range = next.min - cur.min;
   const progress = total - cur.min;
   const pct = Math.min(Math.round(progress / range * 100), 100);
   const remain = next.min - total;
   return '<div style="margin-top:12px;padding:10px 12px;background:rgba(255,255,255,.45);border-radius:var(--rsm)">'
-    +'<div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:6px">'
-      +'<span>'+GRADES[gradeKey].icon+' '+GRADES[gradeKey].name+'</span>'
-      +'<span>'+GRADES[next.key].icon+' '+next.name+'</span>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px">'
+      +'<span>'+gmark(gradeKey,14)+GRADES[gradeKey].name+'</span>'
+      +'<span>'+gmark(next.key,14)+next.name+'</span>'
     +'</div>'
     +'<div style="height:8px;background:rgba(0,0,0,.1);border-radius:99px;overflow:hidden">'
       +'<div style="height:100%;width:'+pct+'%;background:currentColor;border-radius:99px;transition:width .8s ease;opacity:.7"></div>'
     +'</div>'
-    +'<div style="font-size:11px;margin-top:5px;text-align:right;opacity:.75">'+next.name+'까지 <strong>'+remain+'회</strong> 남음</div>'
+    +'<div style="font-size:13px;margin-top:5px;text-align:right;opacity:.75">'+next.name+'까지 <strong>'+remain+'회</strong> 남음</div>'
   +'</div>'
   +'<div style="margin-top:10px;padding:10px 12px;background:rgba(255,255,255,.45);border-radius:var(--rsm);border-left:3px solid rgba(0,0,0,.15)">'
-    +'<div style="font-size:11px;font-weight:700;opacity:.7;margin-bottom:3px">📋 출석 내역 안내</div>'
-    +'<div style="font-size:11px;line-height:1.6;opacity:.65">'
+    +'<div style="font-size:13px;font-weight:700;opacity:.7;margin-bottom:3px">'+ic('i-note',14)+'출석 내역 안내</div>'
+    +'<div style="font-size:13px;line-height:1.6;opacity:.65">'
       +'2026년 1월 1일 ~ 5월 20일 키오스크 출석 내역은 소급 적용되었습니다.<br>'
       +'이후 출석 내역은 <strong>QR 체크인으로만 반영</strong>됩니다.'
     +'</div>'
@@ -693,19 +775,19 @@ function renderResult(){
   let bHtml='';
   if(benefit){
     if(benefit.type==='hour')
-      bHtml='<div class="result-benefit"><div class="benefit-icon">⏰</div><div><div class="benefit-text">+'+benefit.val+'시간 추가 적립 (네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 전용 혜택</div></div></div>';
+      bHtml='<div class="result-benefit">'+ic('i-clock',0,'benefit-icon')+'<div><div class="benefit-text">+'+benefit.val+'시간 추가 적립 (네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 전용 혜택</div></div></div>';
     else if(benefit.type==='day')
-      bHtml='<div class="result-benefit"><div class="benefit-icon">📅</div><div><div class="benefit-text">+'+benefit.val+'일 추가 제공 (네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 전용 혜택</div></div></div>';
+      bHtml='<div class="result-benefit">'+ic('i-calendar',0,'benefit-icon')+'<div><div class="benefit-text">+'+benefit.val+'일 추가 제공 (네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 전용 혜택</div></div></div>';
     else if(benefit.type==='study')
-      bHtml='<div class="result-benefit"><div class="benefit-icon">⏰</div><div><div class="benefit-text">+'+benefit.val+'시간 추가 적립 ('+benefit.pct+'%, 네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 스터디룸 혜택</div></div></div>';
+      bHtml='<div class="result-benefit">'+ic('i-clock',0,'benefit-icon')+'<div><div class="benefit-text">+'+benefit.val+'시간 추가 적립 ('+benefit.pct+'%, 네이버 리뷰 작성 시)</div><div class="benefit-sub">'+g.name+' 등급 스터디룸 혜택</div></div></div>';
   } else {
-    bHtml='<div class="result-no-benefit"><span>ℹ️</span><span class="result-no-benefit-text">추가 적립·기간 혜택 없음 — 골드펜슬 이상부터 제공됩니다</span></div>';
+    bHtml='<div class="result-no-benefit">'+ic('i-info',15)+'<span class="result-no-benefit-text">추가 적립·기간 혜택은 골드펜슬 등급부터 제공됩니다</span></div>';
   }
 
   let applyBtn='';
   if(grade==='saesak'){
     applyBtn = verifiedPhone
-      ? '<button class="welcome-btn" onclick="openWelcomeModal()">🎁 웰컴 당일권 신청하기</button>'
+      ? '<button class="welcome-btn" onclick="openWelcomeModal()">'+ic('i-gift',17)+'웰컴 당일권 신청하기</button>'
       : '<button class="apply-btn" disabled><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>회원 확인 후 신청 가능합니다</button>';
   } else if(!verifiedPhone){
     applyBtn='<button class="apply-btn" disabled><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>회원 확인 후 신청 가능합니다</button>';
@@ -715,7 +797,7 @@ function renderResult(){
 
   el.innerHTML=
     '<div class="result-card">'
-      +'<div class="result-head"><div class="result-head-label">계산 결과</div><div class="result-head-grade">'+g.icon+' '+g.name+'</div></div>'
+      +'<div class="result-head"><div class="result-head-label">계산 결과</div><div class="result-head-grade">'+gmark(grade,16)+g.name+'</div></div>'
       +'<div class="result-body">'
         +'<div class="result-row"><span class="rl">정상가</span><span class="rv">'+fmt(price)+'원</span></div>'
         +'<div class="result-row"><span class="rl">등급 할인 ('+Math.round(g.disc*100)+'%)</span><span class="rv disc">−'+fmt(discAmt)+'원</span></div>'
@@ -739,6 +821,8 @@ function selBranch(b,el){
   const plans=getPlans();
   if(!plans.find(p=>p.id===plan&&PRICES[branch][p.id]!=null))
     plan=(plans.find(p=>PRICES[branch][p.id]!=null)||{}).id||null;
+  visitorCouponOn=false; applyVisitorCouponUI();
+  refreshVisitorCouponStatus();
   renderPlans(); renderResult();
 }
 
@@ -793,7 +877,7 @@ function verifyMember(){
 
   if(raw.length<10||raw.length>11){
     wrap.classList.add('err');
-    resEl.innerHTML='<div class="verify-fail-box"><span class="verify-fail-icon">⚠️</span><div><div class="verify-fail-text">올바른 전화번호를 입력해주세요</div></div></div>';
+    resEl.innerHTML='<div class="verify-fail-box">'+ic('i-alert',0,'verify-fail-icon')+'<div><div class="verify-fail-text">올바른 전화번호를 입력해주세요</div></div></div>';
     return;
   }
 
@@ -840,28 +924,28 @@ function verifyMember(){
       resEl.innerHTML=
         '<div style="background:'+gc.bg+';border-radius:var(--rmd);padding:14px 16px;margin-top:10px;color:'+gc.color+'">'
           +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
-            +'<span style="font-size:30px;line-height:1">'+g.icon+'</span>'
+            +'<svg class="ic" style="width:30px;height:30px;stroke-width:1.5"><use href="#'+g.sym+'"/></svg>'
             +'<div>'
-              +'<div style="font-size:15px;font-weight:900">'+g.name+'</div>'
-              +'<div style="font-size:12px;opacity:.75;margin-top:1px">누적 출석 '+data.totalCount+'회</div>'
+              +'<div style="font-size:17px;font-weight:900">'+g.name+'</div>'
+              +'<div style="font-size:14px;opacity:.75;margin-top:1px">누적 출석 '+data.totalCount+'회</div>'
             +'</div>'
           +'</div>'
           +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">'
             +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
-              +'<div style="font-size:16px;font-weight:900">'+data.totalCount+'</div>'
-              +'<div style="font-size:10px;margin-top:2px;opacity:.7">누적 출석</div>'
+              +'<div style="font-size:18px;font-weight:900">'+data.totalCount+'</div>'
+              +'<div style="font-size:12px;margin-top:2px;opacity:.7">누적 출석</div>'
             +'</div>'
             +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
-              +'<div style="font-size:16px;font-weight:900">'+(data.monthCount||0)+'</div>'
-              +'<div style="font-size:10px;margin-top:2px;opacity:.7">이달 출석</div>'
+              +'<div style="font-size:18px;font-weight:900">'+(data.monthCount||0)+'</div>'
+              +'<div style="font-size:12px;margin-top:2px;opacity:.7">이달 출석</div>'
             +'</div>'
             +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
-              +'<div style="font-size:16px;font-weight:900">'+Math.round(g.disc*100)+'%</div>'
-              +'<div style="font-size:10px;margin-top:2px;opacity:.7">할인율</div>'
+              +'<div style="font-size:18px;font-weight:900">'+Math.round(g.disc*100)+'%</div>'
+              +'<div style="font-size:12px;margin-top:2px;opacity:.7">할인율</div>'
             +'</div>'
             +'<div style="background:rgba(255,255,255,.55);border-radius:var(--rsm);padding:8px;text-align:center">'
-              +'<div style="font-size:16px;font-weight:900">'+(data.streak>=2?'🔥'+data.streak:data.streak)+'</div>'
-              +'<div style="font-size:10px;margin-top:2px;opacity:.7">연속 출석</div>'
+              +'<div style="font-size:18px;font-weight:900">'+(data.streak>=2?ic('i-flame',15)+data.streak:data.streak)+'</div>'
+              +'<div style="font-size:12px;margin-top:2px;opacity:.7">연속 출석</div>'
             +'</div>'
           +'</div>'
         +getProgressHtml(data.totalCount, data.grade)
@@ -871,24 +955,26 @@ function verifyMember(){
       resEl.innerHTML=
         '<div style="margin-top:10px">'
           +'<div class="verify-fail-box">'
-            +'<span class="verify-fail-icon">😢</span>'
+            +ic('i-search-off',0,'verify-fail-icon')
             +'<div>'
               +'<div class="verify-fail-text">'+(data.msg||'등록된 회원이 아닙니다')+'</div>'
               +'<div class="verify-fail-sub">'
-                +'매장 내 QR을 통해 출석 체크 1회만 하면 등록돼요!<br>'
-                +'<span style="display:inline-block;margin-top:5px;padding:3px 10px;background:#dcfce7;color:#16a34a;border-radius:99px;font-size:11px;font-weight:700">🎁 1회 출석 시 무료 이용권 즉시 발급</span><br>'
-                +'<span style="display:inline-block;margin-top:4px;padding:3px 10px;background:#e0f2fe;color:#0369a1;border-radius:99px;font-size:11px;font-weight:700">📝 네이버 리뷰 작성 시 10시간 당일권 추가 발급!</span>'
+                +'매장 내 QR로 출석 체크를 한 번만 하시면 등록됩니다<br>'
+                +'<span style="display:inline-block;margin-top:5px;padding:3px 10px;background:#dcfce7;color:#16a34a;border-radius:99px;font-size:13px;font-weight:700">'+ic('i-gift',13)+'1회 출석 시 무료 이용권 즉시 발급</span><br>'
+                +'<span style="display:inline-block;margin-top:4px;padding:3px 10px;background:#e0f2fe;color:#0369a1;border-radius:99px;font-size:13px;font-weight:700">'+ic('i-edit',13)+'네이버 리뷰 작성 시 10시간 당일권 추가 발급</span>'
               +'</div>'
             +'</div>'
           +'</div>'
-          +'<button class="visitor-coupon-btn" onclick="openVisitorModal()">'
-            +'⏰ 첫방문 8시간 쿠폰 신청하기 (비회원 전용 · 1회 한정)'
-          +'</button>'
+          +(visitorCouponOn
+            ? '<button class="visitor-coupon-btn" onclick="openVisitorModal()">'
+            +ic('i-ticket',17)+'첫방문 8시간 쿠폰 신청하기 (비회원 전용 · 1회 한정)'
+              +'</button>'
+            : '')
         +'</div>';
     }
   }).catch(()=>{
     btn.disabled=false; btn.textContent='조회';
-    resEl.innerHTML='<div class="verify-fail-box" style="margin-top:10px"><span class="verify-fail-icon">⚠️</span><div><div class="verify-fail-text">일시적으로 응답이 지연되고 있습니다</div><div class="verify-fail-sub">버튼을 다시 눌러 조회해주세요</div></div></div>';
+    resEl.innerHTML='<div class="verify-fail-box" style="margin-top:10px">'+ic('i-alert',0,'verify-fail-icon')+'<div><div class="verify-fail-text">일시적으로 응답이 지연되고 있습니다</div><div class="verify-fail-sub">버튼을 다시 눌러 조회해주세요</div></div></div>';
   });
 }
 
@@ -896,7 +982,7 @@ function openWelcomeModal(){
   if(!verifiedPhone) return;
   document.getElementById('welcome-phone').value  = verifiedPhone;
   document.getElementById('welcome-branch').value = BRANCH_NAMES[branch];
-  document.getElementById('welcome-grade').value  = '🌱 새싹펜슬';
+  document.getElementById('welcome-grade').value  = '새싹펜슬';
   document.getElementById('welcome-err').style.display = 'none';
   document.getElementById('welcome-form').style.display = 'block';
   document.getElementById('welcome-done').style.display = 'none';
@@ -947,7 +1033,7 @@ function submitWelcome(){
     document.getElementById('welcome-done-info').innerHTML =
       '<div class="done-row"><span class="dl">전화번호</span><span class="dv">'+data.phone+'</span></div>'
       +'<div class="done-row"><span class="dl">지점</span><span class="dv">'+data.branch+'</span></div>'
-      +'<div class="done-row"><span class="dl">등급</span><span class="dv">🌱 새싹펜슬</span></div>'
+      +'<div class="done-row"><span class="dl">등급</span><span class="dv">'+gmark('saesak',14)+'새싹펜슬</span></div>'
       +'<div class="done-row"><span class="dl">혜택</span><span class="dv" style="color:var(--green)">당일권 2시간 무료 이용권</span></div>'
       +'<div class="done-row"><span class="dl">신청 일시</span><span class="dv">'+data.appliedAt+'</span></div>';
     document.getElementById('welcome-done').style.display = 'block';
@@ -970,14 +1056,14 @@ function openApplyModal(){
 
   document.getElementById('apply-summary').innerHTML=
     '<span class="apply-badge">'+BRANCH_NAMES[branch]+'</span>'
-    +'<span class="apply-badge">'+g.icon+' '+g.name+'</span>'
+    +'<span class="apply-badge">'+gmark(grade,14)+g.name+'</span>'
     +'<span class="apply-badge">'+catLabel+' · '+planName+'</span>'
     +'<span class="apply-badge">'+fmt(final)+'원</span>';
 
   document.getElementById('apply-phone').value=verifiedPhone;
   document.getElementById('apply-phone').classList.remove('err');
   document.getElementById('apply-branch').value=BRANCH_NAMES[branch];
-  document.getElementById('apply-grade').value=g.icon+' '+g.name+(g.disc>0?' ('+Math.round(g.disc*100)+'% 할인)':' (할인 없음)');
+  document.getElementById('apply-grade').value=g.name+(g.disc>0?' ('+Math.round(g.disc*100)+'% 할인)':' (할인 없음)');
   document.getElementById('apply-plan').value=catLabel+' · '+planName;
   document.getElementById('apply-price').value=fmt(price)+'원  →  '+fmt(final)+'원  (-'+fmt(discAmt)+'원)';
   document.getElementById('apply-err').style.display='none';
@@ -1026,11 +1112,11 @@ async function submitApply(){
   document.getElementById('apply-done-info').innerHTML=
     '<div class="done-row"><span class="dl">전화번호</span><span class="dv">'+data.phone+'</span></div>'
     +'<div class="done-row"><span class="dl">지점</span><span class="dv">'+data.branch+'</span></div>'
-    +'<div class="done-row"><span class="dl">등급</span><span class="dv">'+g.icon+' '+data.grade+'</span></div>'
+    +'<div class="done-row"><span class="dl">등급</span><span class="dv">'+gmark(grade,14)+data.grade+'</span></div>'
     +'<div class="done-row"><span class="dl">요금제</span><span class="dv">'+data.category+' · '+data.plan+'</span></div>'
     +'<div class="done-row"><span class="dl">정상가</span><span class="dv">'+fmt(data.normalPrice)+'원</span></div>'
     +'<div class="done-row"><span class="dl">할인 금액</span><span class="dv" style="color:var(--red)">-'+fmt(data.discountAmt)+'원 ('+data.discountRate+'%)</span></div>'
-    +'<div class="done-row"><span class="dl">최종 결제</span><span class="dv" style="color:var(--accent);font-size:15px">'+fmt(data.finalPrice)+'원</span></div>'
+    +'<div class="done-row"><span class="dl">최종 결제</span><span class="dv" style="color:var(--accent);font-size:17px">'+fmt(data.finalPrice)+'원</span></div>'
     +'<div class="done-row"><span class="dl">추가 혜택</span><span class="dv" style="color:var(--green)">'+data.benefit+'</span></div>'
     +'<div class="done-row"><span class="dl">신청 일시</span><span class="dv">'+data.appliedAt+'</span></div>';
   if(benefit && grade!=='saesak' && grade!=='silver'){
@@ -1040,6 +1126,7 @@ async function submitApply(){
 }
 
 function openVisitorModal(){
+  if(!visitorCouponOn) return;          // 발급 중단 상태에서는 열지 않는다
   const phone = document.getElementById('verify-phone').value.trim();
   if(!phone) return;
   document.getElementById('visitor-phone').value  = phone;
@@ -1057,10 +1144,10 @@ function openVisitorModal(){
 
   const wbox = document.getElementById('visitor-weekend-box');
   if (isWeekend) {
-    wbox.innerHTML = '😴 오늘은 주말이에요.<br><span style="font-size:12px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 평일(월~금)에만 신청 가능합니다</span>';
+    wbox.innerHTML = '<svg class="ic ic-inline" style="width:14px;height:14px"><use href="#i-moon"/></svg>오늘은 주말입니다.<br><span style="font-size:14px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 평일(월~금)에만 신청 가능합니다</span>';
     wbox.style.display = 'block';
   } else if (isOutOfHours) {
-    wbox.innerHTML = '🌙 지금은 발급 시간이 아니에요.<br><span style="font-size:12px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 오전 9시~오후 10시에만 신청 가능합니다</span>';
+    wbox.innerHTML = '<svg class="ic ic-inline" style="width:14px;height:14px"><use href="#i-moon"/></svg>지금은 발급 시간이 아닙니다.<br><span style="font-size:14px;font-weight:400;margin-top:4px;display:block">첫방문 쿠폰은 오전 9시~오후 10시에만 신청 가능합니다</span>';
     wbox.style.display = 'block';
   } else {
     wbox.style.display = 'none';
@@ -1144,6 +1231,7 @@ function closePrivacy(){
   document.body.style.overflow='';
 }
 
+refreshVisitorCouponStatus();
 renderPlans();
 renderResult();
 </script>
